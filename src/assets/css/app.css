@@ -1,1 +1,41 @@
 @import "tailwindcss";
+
+/* Global classes */
+.miswag-bg-red-primary {
+  @apply bg-[#DF1C24];
+}
+
+.miswag-bg-red-secondary {
+  @apply bg-[#F04438];
+}
+
+.miswag-bg-red-brand-default {
+  @apply bg-[#D92D20];
+}
+
+.bg-natural-default {
+  @apply bg-[#1C1C1C];
+}
+
+.bg-base-default {
+  @apply bg-[#FCFCFC];
+}
+
+.text-base-default {
+  @apply text-[#141414];
+}
+.text-natural-secondary {
+  @apply text-[#575757];
+}
+
+.text-base-secondary {
+  @apply text-[#575757];
+}
+
+.text-natural-on-neutral {
+  @apply text-[#FCFCFC];
+}
+
+.border-color {
+  @apply border-[#E8E8E8];
+}
