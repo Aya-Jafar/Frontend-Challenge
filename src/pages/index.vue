@@ -12,7 +12,7 @@ const Grid = defineAsyncComponent(() => import("~/components/home/Grid.vue"));
   <Suspense>
     <template #default>
       <DefaultLayout>
-        <div class="p-10 text-center">
+        <div class="px-10 text-center">
           <Grid />
         </div>
       </DefaultLayout>
