@@ -39,3 +39,26 @@
 .border-color {
   @apply border-[#E8E8E8];
 }
+.text-base-tertiary {
+  @apply text-[#A5A5A5];
+
+}
+
+@font-face {
+  font-family: "Teshrin AR+LT Regular";
+  src: url("https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.eot");
+  src: url("https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.woff2")
+      format("woff2"),
+    url("https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.woff")
+      format("woff"),
+    url("https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.ttf")
+      format("truetype"),
+    url("https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.svg#Teshrin AR+LT Regular")
+      format("svg");
+}
+
+body {
+  font-family: "Teshrin AR+LT Regular";
+}

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from "vue";
+import WrapperComponent from "~/components/common/WrapperComponent.vue";
 
 // Lazy loaded components
 const DefaultLayout = defineAsyncComponent(
@@ -12,9 +13,14 @@ const Grid = defineAsyncComponent(() => import("~/components/home/Grid.vue"));
   <Suspense>
     <template #default>
       <DefaultLayout>
-        <div class="px-10 text-center">
-          <Grid />
-        </div>
+        <!-- TODO: Add all  WrapperComponent props -->
+        <WrapperComponent :card-skeleton="true">
+          <template #content>
+            <div class="px-10 text-center">
+              <Grid />
+            </div>
+          </template>
+        </WrapperComponent>
       </DefaultLayout>
     </template>
   </Suspense>
