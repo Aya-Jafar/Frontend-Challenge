@@ -7,7 +7,7 @@ const props = defineProps({
     type: Array<BannerDTO>,
     default: () => [],
   },
-  proprties: {
+  properties: {
     type: Object as () => BannerGridPropertiesDTO,
     default: () => ({}),
   },
@@ -18,10 +18,11 @@ const props = defineProps({
   <div
     :class="[
       'grid p-4',
-      `grid-cols-${proprties.cols}`,
-      `gap-x-[${proprties.interitemSpacing}px]`,
-      `gap-y-[${proprties.lineSpacing}px]`,
-      `p-[${proprties.topBottomMargins}px_${proprties.leftRightMargins}px]`,
+      `grid-cols-${properties.cols}`,
+      `grid-rows-${properties.rows}`,
+      `gap-x-[${properties.interitemSpacing}px]`,
+      `gap-y-[${properties.lineSpacing}px]`,
+      `p-[${properties.topBottomMargins}px_${properties.leftRightMargins}px]`,
     ]"
   >
     <div
@@ -29,8 +30,8 @@ const props = defineProps({
       :key="item.id"
       :class="[
         'overflow-hidden rounded-lg  mb-5 mr-3',
-        proprties.hasShadow ? 'shadow-md' : '',
-        proprties.ratio === '2' ? 'aspect-[2/1]' : 'aspect-square',
+        properties.hasShadow ? 'shadow-md' : '',
+        properties.ratio === '2' ? 'aspect-[2/1]' : '',
       ]"
     >
       <img

@@ -74,7 +74,7 @@ const sections = computed((): Section[] | [] => {
             <BannersGrid
               v-if="section.type === 'grid'"
               :data="section.content"
-              :proprties="section.properties"
+              :properties="section.properties"
             />
           </template>
         </div>
