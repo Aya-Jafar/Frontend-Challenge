@@ -12,6 +12,10 @@
 .miswag-bg-red-brand-default {
   @apply bg-[#D92D20];
 }
+.miswag-button {
+  @apply bg-[#D22525] text-white;
+}
+
 
 .bg-natural-default {
   @apply bg-[#1C1C1C];
@@ -42,6 +46,9 @@
 .text-base-tertiary {
   @apply text-[#A5A5A5];
 
+}
+.product-border-color{
+  @apply border-[#F69393];
 }
 
 @font-face {

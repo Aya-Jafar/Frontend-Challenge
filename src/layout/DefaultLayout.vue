@@ -18,5 +18,4 @@ import Nav from "../components/home/nav/index.vue";
       </main>
     </template>
   </Suspense>
-
 </template>

@@ -3,6 +3,9 @@ import Logo from "~/components/home/nav/Logo.vue";
 import Search from "~/components/home/nav/Search.vue";
 import LanguageSwitcher from "~/components/home/nav/LanguageSwitcher.vue";
 import AccountButton from "~/components/home/nav/AccountButton.vue";
+import useCart from "../../../stores/products/card";
+
+const { card } = useCart();
 </script>
 
 <template>
@@ -38,6 +41,7 @@ import AccountButton from "~/components/home/nav/AccountButton.vue";
         class="bg-[#FFE9E9] rounded-[12px] p-2 flex items-center justify-center"
       >
         <img src="/assets/images/nav-cart.png" class="w-5 h-5" alt="cart" />
+        {{ card.length }}
       </button>
 
       <!-- Wishlist -->

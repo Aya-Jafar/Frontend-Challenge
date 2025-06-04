@@ -1,5 +1,6 @@
-import { useSnackbarStore } from "@/stores/snackbar";
-
+// import { useSnackbarStore } from "@/stores/snackbar";
+// @ts-ignore
+import { useRuntimeConfig } from "#imports";
 
 /**
  * Type for supported HTTP methods.
@@ -99,7 +100,7 @@ export class APIService {
     setLoading = null,
     setError = null,
   }: APIServiceOptions<T>): Promise<T> {
-    const snackbarStore = useSnackbarStore();
+    // const snackbarStore = useSnackbarStore();
 
     if (setLoading) setLoading(true);
 
@@ -108,7 +109,8 @@ export class APIService {
       "Content-Type": "application/json",
     };
 
-    const url = `${import.meta.env.VITE_API_BASE_URL}/${endpoint}${pathParams}`;
+    const API_BASE_URL = useRuntimeConfig().public.API_BASE_URL;
+    const url = `${API_BASE_URL}/${endpoint}${pathParams}`;
 
     try {
       const response = await fetch(url, {
@@ -120,24 +122,23 @@ export class APIService {
       if (!response.ok) {
         const errorMessage = await response.text();
         if (method !== "GET")
-          snackbarStore.showSnackbar(`API Error: ${errorMessage}`, "error");
-        throw new Error(errorMessage);
+          //   snackbarStore.showSnackbar(`API Error: ${errorMessage}`, "error");
+          throw new Error(errorMessage);
       }
       const contentType = response.headers.get("Content-Type");
 
       const data: T = await response.json();
 
       if (method !== "GET") {
-        snackbarStore.showSnackbar("Request successful!", "success");
+        // snackbarStore.showSnackbar("Request successful!", "success");
       }
       if (setterFunction) {
         setterFunction(data);
       }
       return data;
-
     } catch (error) {
       if (method !== "GET") {
-        snackbarStore.showSnackbar(`Error: ${String(error)}`, "error");
+        // snackbarStore.showSnackbar(`Error: ${String(error)}`, "error");
       }
 
       throw error;

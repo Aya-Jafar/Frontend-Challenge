@@ -1,0 +1,47 @@
+<script setup lang="ts">
+const emit = defineEmits(["click", "class"]);
+
+const props = defineProps<{
+  variant?: "solid" | "outline";
+  color?: "primary" | "secondary" | "danger" | "success";
+  customClass?: string;
+}>();
+
+const baseClasses = "rounded-[16px] px-6 py-2 text-sm font-semibold transition";
+
+const variantClasses = {
+  solid: {
+    primary: "miswag-button text-white",
+    secondary: "bg-gray-600 text-white",
+    danger: "bg-red-600 text-white",
+    success: "bg-green-600 text-white",
+  },
+  outline: {
+    primary: "border border-[#D22525] text-[#D22525]",
+
+    secondary: "border border-gray-600 text-gray-600",
+    danger: "border border-red-600 text-red-600",
+    success: "border border-green-600 text-green-600",
+  },
+};
+
+const buttonClass = computed(() => {
+  if (props.customClass) {
+    return `${baseClasses} ${props.customClass}`;
+  }
+  return `${baseClasses} ${
+    variantClasses[props.variant || "solid"][props.color || "primary"]
+  }`;
+});
+
+const handleClick = () => {
+  emit("click");
+  emit("class", buttonClass.value);
+};
+</script>
+
+<template>
+  <button :class="buttonClass.trim()" @click="handleClick">
+    <slot />
+  </button>
+</template>

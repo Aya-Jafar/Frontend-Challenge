@@ -5,18 +5,18 @@
  * Props are used to manage the states and slots provide flexibility for custom UI components.
  */
 const props = defineProps({
-  error: Object, // Error object containing error details
-  isLoading: Boolean, // Flag indicating loading state
-  isPending: Boolean, // Flag indicating pending state
-  isError: Boolean, // Flag indicating error state
-  isSuccess: Boolean, // Flag indicating success state
-  isRefetching: Boolean, // Flag indicating refetching state
-  isRefetchError: Boolean, // Flag indicating refetch error state
-  isEmpty: Boolean, // Flag indicating empty data state
-  data: Array, // Array containing data to be displayed
-  cardSkeleton: [String, Boolean], // Skeleton loader type or boolean flag
-  skeletonHeight: [String, Number], // Height of the skeleton loader
-  spinnerSize: [String, Number], // Size of the spinner
+  error: Object,
+  isLoading: Boolean,
+  isPending: Boolean,
+  isError: Boolean,
+  isSuccess: Boolean,
+  isRefetching: Boolean,
+  isRefetchError: Boolean,
+  isEmpty: Boolean,
+  data: Array,
+  cardSkeleton: [String, Boolean],
+  skeletonHeight: [String, Number],
+  spinnerSize: [String, Number],
 });
 </script>
 
