@@ -12,6 +12,9 @@ import { defineEventHandler } from "h3";
 export default defineEventHandler(
   async (): Promise<ContentWrapper | { error: string }> => {
     try {
+      /**
+       * The `mockapi.io` returns the nested "content" as a flat array
+       */
       const data = await APIService.request<ContentWrapper>({
         endpoint: ENDPOINTS.PRODUCTS,
         method: "GET",
