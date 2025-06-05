@@ -16,8 +16,6 @@ export const ProductsDTOBuilder = (wrapper: ContentWrapper): ProductDTO[] => {
   if (!wrapper || !Array.isArray(wrapper)) {
     return [];
   }
-  console.log("data in DTO", wrapper);
-
   /**
    * What we input is in this structure :
    * [

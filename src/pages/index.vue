@@ -3,6 +3,7 @@ import { defineAsyncComponent } from "vue";
 import WrapperComponent from "~/components/common/WrapperComponent.vue";
 import { SSR_ENDPOINTS } from "~/utils/SSR-endpoint";
 import { computed, watch } from "vue";
+import Snackbar from "~/components/common/Snackbar.vue";
 import {
   preparePrdoucts,
   preparePrdouctsProperties,
@@ -12,6 +13,7 @@ import {
   prepareBannersProperties,
 } from "~/stores/products/banners";
 import { type Type, type Section, type ProductPropertiesDTO } from "~/utils/types";
+
 
 // Lazy loaded components
 const DefaultLayout = defineAsyncComponent(
@@ -80,5 +82,6 @@ const sections = computed((): Section[] | [] => {
         </div>
       </template>
     </WrapperComponent>
+    <Snackbar />
   </DefaultLayout>
 </template>

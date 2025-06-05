@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import type { BannerGridPropertiesDTO, BannerDTO } from "../../../utils/types";
 
-const props = defineProps({
+
+defineProps({
   data: {
     type: Array<BannerDTO>,
     default: () => [],

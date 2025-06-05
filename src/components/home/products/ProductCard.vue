@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import useWishList from "~/stores/products/wishlist";
 import useCard from "../../../stores/products/card";
 import type { ProductDTO, ProductPropertiesDTO } from "../../../utils/types";
+import { useSnackbarStore } from "~/stores/snackbar";
 
 const props = defineProps<{
   productData: ProductDTO;
@@ -12,8 +14,18 @@ const emit = defineEmits<{
 }>();
 
 const { addToCard } = useCard();
+const { addToWishlist } = useWishList();
+const { showSnackbar } = useSnackbarStore();
 
-const handleAddToCard = () => addToCard(props.productData!);
+
+const handleAddToCard = () => {
+  addToCard(props.productData!);
+  showSnackbar("Item added to card!", "success");
+};
+const handleAddToWishList = () => {
+  addToWishlist(props.productData!);
+  showSnackbar("Item added to wishlist!", "success");
+};
 </script>
 
 <template>
@@ -21,16 +33,16 @@ const handleAddToCard = () => addToCard(props.productData!);
     @click="emit('open-modal', productData)"
     class="rtl cursor-pointer relative rounded-[8px] border border-gray-200 bg-base-default px-3 py-4 hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full"
   >
-    <!-- ❤️ Heart Button -->
-    <!-- TODO: Add state togggle here -->
+    <!-- Heart Button -->
     <button
       v-if="properties.hasFavouriteBtn"
-      class="absolute top-3 right-3 bg-white shadow-md rounded-[8px] p-2 flex items-center justify-center"
+      @click.stop="handleAddToWishList"
+      class="absolute cursor-pointer top-3 right-3 bg-white shadow-md rounded-[8px] p-2 flex items-center justify-center"
     >
       <img src="~/assets/images/heart-filled.png" class="w-6 h-6" alt="heart" />
     </button>
 
-    <!-- 🛒 Cart Button -->
+    <!--  Cart Button -->
     <button
       v-if="properties.hasCartBtn"
       @click.stop="handleAddToCard"
@@ -39,7 +51,7 @@ const handleAddToCard = () => addToCard(props.productData!);
       <img src="~/assets/images/shop-cart.png" class="w-6 h-6" alt="cart" />
     </button>
 
-    <!-- ⭐️ Rating Button -->
+    <!--  Rating Button -->
     <button
       v-if="properties.shouldShowRating"
       class="absolute top-35 left-3 bg-white rounded-[8px] p-1 flex items-center justify-center shadow-sm"
@@ -50,7 +62,7 @@ const handleAddToCard = () => addToCard(props.productData!);
       <img src="~/assets/images/star.png" class="w-4 h-4" alt="star" />
     </button>
 
-    <!-- 🔔  Discount Button -->
+    <!--  Discount Button -->
     <button
       v-if="
         productData.topTag &&
@@ -66,7 +78,7 @@ const handleAddToCard = () => addToCard(props.productData!);
       <span>{{ productData.topTag }}</span>
     </button>
 
-    <!-- 📸 Image -->
+    <!-- Image -->
     <div
       :style="{ aspectRatio: properties.imageRatio || '1' }"
       class="flex justify-center items-center h-40 mb-2 bg-white rounded-[8px] overflow-hidden"
@@ -78,7 +90,7 @@ const handleAddToCard = () => addToCard(props.productData!);
       />
     </div>
 
-    <!-- 📜 Title -->
+    <!--  Title -->
     <h2
       v-if="properties.shouldShowTitle"
       :class="[
@@ -89,7 +101,7 @@ const handleAddToCard = () => addToCard(props.productData!);
       {{ productData.title }}
     </h2>
 
-    <!-- 💰 Price & currency -->
+    <!--  Price & currency -->
     <div class="text-right text-[#141414] !font-bold text-lg mb-1">
       {{ productData.currency }} {{ productData.price }}
     </div>
@@ -132,7 +144,7 @@ const handleAddToCard = () => addToCard(props.productData!);
           </div>
         </div>
 
-        <!-- 🎁 Badge + seller -->
+        <!--  Badge + seller -->
         <div class="flex items-end flex-col justify-between mt-1">
           <div
             class="flex items-center gap-1 text-sm mb-2 rounded-full px-2 py-0.5 font-semibold"

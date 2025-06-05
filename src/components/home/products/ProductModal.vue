@@ -3,6 +3,7 @@ import { onMounted, onBeforeUnmount, ref } from "vue";
 import type { ProductDTO } from "../../../utils/types";
 import BaseButton from "../../common/BaseButton.vue";
 import useCard from "../../../stores/products/card";
+import { useSnackbarStore } from "~/stores/snackbar";
 
 const props = defineProps<{
   product: ProductDTO | null;
@@ -14,6 +15,8 @@ const { card, addToCard } = useCard();
 const emit = defineEmits(["close"]);
 const isLoading = ref(false);
 const error = ref(null);
+const { showSnackbar } = useSnackbarStore();
+
 
 // TODO: Refactor this into compasables
 // Event handers for outside click
@@ -34,6 +37,7 @@ onBeforeUnmount(() => {
 // Handle add to cart
 const handleAddToCart = () => {
   addToCard(props.product!);
+  showSnackbar("Item added to card!", "success");
 };
 </script>
 

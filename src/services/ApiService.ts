@@ -1,72 +1,22 @@
-// import { useSnackbarStore } from "@/stores/snackbar";
+import { useSnackbarStore } from "@/stores/snackbar";
 // @ts-ignore
 import { useRuntimeConfig } from "#imports";
+import type { SnackbarType } from "@/stores/snackbar";
 
-/**
- * Type for supported HTTP methods.
- */
 type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE";
-
-/**
- * Type for a function that sets response data.
- */
 type SetterFunction<T> = (data: T) => void;
-
-/**
- * Type for a function that sets loading status.
- */
 type LoadingFunction = (isLoading: boolean) => void;
-
-/**
- * Type for a function that sets error messages.
- */
 type ErrorFunction = (errorMessage: string) => void;
 
-/**
- * Interface for the options to be passed to the API service.
- */
 interface APIServiceOptions<T = any> {
-  /**
-   * The API endpoint (e.g., "/auth/user").
-   * @example "/auth/login"
-   */
   endpoint: string;
-
-  /**
-   * The HTTP method (GET, POST, PUT, DELETE). Default is "GET".
-   * @default "GET"
-   */
   method?: HTTPMethod;
-
-  /**
-   * The body content for POST/PUT requests. Can be an object or a string.
-   * @default ""
-   */
   body?: Record<string, any> | string;
-
-  /**
-   * Additional URL path parameters to append to the endpoint (optional).
-   * @example "/123" (appends to the endpoint).
-   */
   pathParams?: string;
-
-  /**
-   * A function to set the response data (optional).
-   * @example (data) => { console.log(data); }
-   */
   setterFunction?: SetterFunction<T> | null;
-
-  /**
-   * A function to set the loading status (optional).
-   * @example (isLoading) => { this.isLoading = isLoading; }
-   */
   setLoading?: LoadingFunction | null;
-
-  /**
-   * A function to set the error message (optional).
-   * @example (errorMessage) => { this.errorMessage = errorMessage; }
-   */
   setError?: ErrorFunction | null;
+  showSnackbar?: (message: string, type?: SnackbarType) => void;
 }
 
 /**
@@ -99,9 +49,8 @@ export class APIService {
     setterFunction = null,
     setLoading = null,
     setError = null,
+    showSnackbar,
   }: APIServiceOptions<T>): Promise<T> {
-    // const snackbarStore = useSnackbarStore();
-
     if (setLoading) setLoading(true);
 
     const headers: Record<string, string> = {
@@ -121,24 +70,23 @@ export class APIService {
 
       if (!response.ok) {
         const errorMessage = await response.text();
-        if (method !== "GET")
-          //   snackbarStore.showSnackbar(`API Error: ${errorMessage}`, "error");
-          throw new Error(errorMessage);
+        if (method !== "GET" && showSnackbar) {
+          showSnackbar(`Error: ${String(errorMessage)}`, "error");
+        }
       }
-      const contentType = response.headers.get("Content-Type");
 
       const data: T = await response.json();
 
-      if (method !== "GET") {
-        // snackbarStore.showSnackbar("Request successful!", "success");
+      if (method !== "GET" && showSnackbar) {
+        showSnackbar("Request successful!", "success");
       }
       if (setterFunction) {
         setterFunction(data);
       }
       return data;
     } catch (error) {
-      if (method !== "GET") {
-        // snackbarStore.showSnackbar(`Error: ${String(error)}`, "error");
+      if (method !== "GET" && showSnackbar) {
+        showSnackbar(`Error: ${String(error)}`, "error");
       }
 
       throw error;

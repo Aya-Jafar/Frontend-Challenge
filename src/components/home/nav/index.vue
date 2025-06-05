@@ -4,8 +4,10 @@ import Search from "~/components/home/nav/Search.vue";
 import LanguageSwitcher from "~/components/home/nav/LanguageSwitcher.vue";
 import AccountButton from "~/components/home/nav/AccountButton.vue";
 import useCart from "../../../stores/products/card";
+import useWishList from "~/stores/products/wishlist";
 
 const { card } = useCart();
+const { wishlist } = useWishList();
 </script>
 
 <template>
@@ -23,6 +25,7 @@ const { card } = useCart();
             class="w-5 h-5"
             alt="wishlist"
           />
+          {{ wishlist.length }}
         </button>
 
         <!-- Cart -->
@@ -51,6 +54,7 @@ const { card } = useCart();
           class="w-5 h-5"
           alt="wishlist"
         />
+        {{ wishlist.length }}
       </button>
 
       <!-- Account -->
