@@ -16,7 +16,9 @@ export default defineEventHandler(
         endpoint: ENDPOINTS.PRODUCTS,
         method: "GET",
       });
-      return data?.content;
+      
+      return data?.content || [];
+
     } catch (error) {
       return { error: "Something went wrong fetching the API data 💥" };
     }

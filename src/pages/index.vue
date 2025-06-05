@@ -45,21 +45,21 @@ const sections = computed((): Section[] | [] => {
   if (!Array.isArray(data.value)) return [];
 
   // Pre-process each section data
-  return data.value.map((section) => {
+  return data.value.map((section: any) => {
     if (isProductSection.value(section.type)) {
       return {
         type: section.type,
-        content: preparePrdoucts(section.content) as ProductDTO[],
+        content: preparePrdoucts(section?.content || []) as ProductDTO[],
         properties: preparePrdouctsProperties(
-          section.properties
+          section?.properties || {}
         ) as ProductPropertiesDTO,
       };
     } else {
       return {
         type: section.type,
-        content: prepareBanners(section.content) as BannerDTO[],
+        content: prepareBanners(section?.content || []) as BannerDTO[],
         properties: prepareBannersProperties(
-          section.properties
+          section?.properties || {}
         ) as BannerGridPropertiesDTO,
       };
     }
