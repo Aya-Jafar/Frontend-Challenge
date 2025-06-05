@@ -17,7 +17,7 @@ defineProps({
 <template>
   <div
     :class="[
-      'grid p-4',
+      'grid',
       `grid-cols-${properties.cols}`,
       `grid-rows-${properties.rows}`,
       `gap-x-[${properties.interitemSpacing}px]`,

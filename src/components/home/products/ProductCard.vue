@@ -18,7 +18,6 @@ const { addToCard, removeFromCard, isInCard } = useCardStore();
 const { addToWishlist, isInWishlist, removeFromWishlist } = useWishListStore();
 const { createToggleHandler } = useToggleActions();
 
-
 const toggleCard = createToggleHandler({
   checkFn: isInCard,
   addFn: addToCard,
@@ -48,13 +47,13 @@ const toggleWishlist = createToggleHandler({
       class="absolute cursor-pointer top-3 right-3 bg-white shadow-md rounded-[8px] p-2 flex items-center justify-center"
     >
       <img
-        src="~/assets/images/heart-filled.png"
+        src="~/assets/images/heart-filled.svg"
         class="w-6 h-6"
         alt="heart"
         v-if="isInWishlist(productData.id)"
       />
       <img
-        src="~/assets/images/heart-empty.png"
+        src="~/assets/images/empty-heart.svg"
         class="w-6 h-6"
         alt="heart"
         v-else
@@ -67,7 +66,7 @@ const toggleWishlist = createToggleHandler({
       @click.stop="toggleCard(props.productData!)"
       class="absolute top-32 right-3 bg-white rounded-[8px] p-2 flex items-center justify-center shadow-sm"
     >
-      <img src="~/assets/images/shop-cart.png" class="w-6 h-6" alt="cart" />
+      <img src="~/assets/images/shop-cart.svg" class="w-6 h-6" alt="cart" />
     </button>
 
     <!--  Rating Button -->
@@ -76,12 +75,14 @@ const toggleWishlist = createToggleHandler({
       class="absolute top-35 left-3 bg-white rounded-[8px] p-1 flex items-center justify-center shadow-sm"
     >
       <span class="text-natural-secondary font-[600]"
-        >{{ productData.rating }}[{{ productData.ratingCount }}]</span
+        ><span class="!font-bold">
+          {{ productData.rating }} </span
+        >[{{ productData.ratingCount }}]</span
       >
-      <img src="~/assets/images/star.png" class="w-4 h-4" alt="star" />
+      <img src="~/assets/images/star.svg" class="w-4 h-4" alt="star" />
     </button>
 
-    <!--  Discount Button -->
+    <!--  Discount badge -->
     <button
       v-if="
         productData.topTag &&
@@ -197,7 +198,7 @@ const toggleWishlist = createToggleHandler({
           class="flex items-center gap-1 bg-black text-white text-sm rounded-full px-2 py-0.5 font-semibold"
         >
           <span>{{ productData.merchant }}</span>
-          <img src="~/assets/images/paper-bag.png" class="w-5 h-5" alt="bag" />
+          <img src="~/assets/images/paper-bag.svg" class="w-5 h-5" alt="bag" />
         </div>
       </div>
     </div>

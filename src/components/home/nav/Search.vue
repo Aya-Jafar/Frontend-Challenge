@@ -3,7 +3,7 @@
     <input
       type="text"
       placeholder="ابحث عن منتج او ماركة"
-      class="w-full rounded-[12px] bg-white px-4 py-2 text-sm border border-gray-300"
+      class="w-full rounded-[12px] bg-white ps-4 pe-[2.5rem] py-2 text-sm border border-gray-300 text-end"
     />
     <img
       class="absolute top-2.5 end-3 w-4 h-4"

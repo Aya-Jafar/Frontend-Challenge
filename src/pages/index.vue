@@ -29,11 +29,10 @@ const BannersGrid = defineAsyncComponent(
 const { data, error, status } = await useFetch<RawSection[]>(
   SSR_ENDPOINTS.HOME
 );
+// Stores and composables
 const store = useProdcutsStore();
 const bannerStore = useBannersStore();
-
-const isProductSection = (type: Type): type is "products" =>
-  type === "products";
+const { isOnline } = useOnline();
 
 /**
  * Checks if the section type is a product section and prepares each section data seperatly.
@@ -42,6 +41,9 @@ const isProductSection = (type: Type): type is "products" =>
  */
 const sections = computed((): Section[] | [] => {
   if (!Array.isArray(data.value)) return [];
+
+  const isProductSection = (type: Type): type is "products" =>
+    type === "products";
 
   // Pre-process each section data
   return data.value.map((section: RawSection) => {
@@ -84,10 +86,11 @@ const {
     <!-- TODO: Add all  WrapperComponent props later -->
     <WrapperComponent
       :card-skeleton="true"
-      :isLoading="status === 'pending' || status === 'idle'"
+      :is-loading="status === 'pending' || status === 'idle'"
       :is-pending="status === 'pending' || status === 'idle'"
       :error="error ?? undefined"
-      :is-empty="sections?.length === 0 && status !== 'pending'"
+      :is-online="isOnline ?? true"
+      :is-empty="sections?.length === 0 && status !== 'pending' && isOnline"
     >
       <template #content>
         <div class="px-10 text-center">

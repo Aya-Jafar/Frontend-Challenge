@@ -23,7 +23,7 @@ const { wishlist } = useWishListStore();
           class="rounded-[12px] p-2 flex items-center justify-center gap-1"
         >
           <img
-            src="/assets/images/heart-empty.png"
+            src="/assets/images/empty-heart.svg"
             class="w-5 h-5"
             alt="wishlist"
           />
@@ -34,7 +34,7 @@ const { wishlist } = useWishListStore();
         <button
           class="bg-[#FFE9E9] rounded-[12px] p-2 flex items-center justify-center gap-1"
         >
-          <img src="/assets/images/nav-cart.png" class="w-5 h-5" alt="cart" />
+          <img src="/assets/images/nav-cart.svg" class="w-5 h-5" alt="cart" />
           {{ card.length }}
         </button>
       </div>
@@ -46,14 +46,14 @@ const { wishlist } = useWishListStore();
       <button
         class="bg-[#FFE9E9] rounded-[12px] p-2 flex items-center justify-center gap-1"
       >
-        <img src="/assets/images/nav-cart.png" class="w-5 h-5" alt="cart" />
+        <img src="/assets/images/nav-cart.svg" class="w-5 h-5" alt="cart" />
         {{ card.length }}
       </button>
 
       <!-- Wishlist -->
       <button class="rounded-[12px] p-2 flex items-center justify-center gap-1">
         <img
-          src="/assets/images/heart-empty.png"
+          src="/assets/images/empty-heart.svg"
           class="w-5 h-5"
           alt="wishlist"
         />

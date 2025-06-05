@@ -17,6 +17,7 @@ const props = defineProps({
   cardSkeleton: [String, Boolean],
   skeletonHeight: [String, Number],
   spinnerSize: [String, Number],
+  isOnline: Boolean,
 });
 </script>
 
@@ -48,7 +49,16 @@ const props = defineProps({
     </slot>
 
     <!-- Network Error -->
-    <slot name="networkError" v-else-if="props.error && !props.error.response">
+    <slot
+      name="networkError"
+      v-else-if="
+        !props.error &&
+        !props.isPending &&
+        !props.isLoading &&
+        !props.isOnline &&
+        !props.isEmpty
+      "
+    >
       <div
         class="flex flex-col justify-center items-center w-full h-full text-center"
       >
@@ -65,7 +75,7 @@ const props = defineProps({
     </slot>
 
     <!--  Server Error -->
-    <slot name="serverError" v-else-if="props.error && props.error.response">
+    <slot name="serverError" v-else-if="props.error">
       <div
         class="flex flex-col justify-center items-center w-full h-full text-center"
       >
