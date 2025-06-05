@@ -1,5 +1,5 @@
 
 
 export enum ENDPOINTS {
-  PRODUCTS = "/products",
+  PRODUCTS = "",
 }

@@ -30,7 +30,7 @@ const Grid = defineAsyncComponent(
 const BannersGrid = defineAsyncComponent(
   () => import("~/components/home/products/BannersGrid.vue")
 );
-const { data, error, pending, status } = useFetch(SSR_ENDPOINTS.HOME);
+const { data, error, status } = useLazyFetch(SSR_ENDPOINTS.HOME);
 
 const isProductSection = computed(() => {
   return (section: Type) => section === "products";
@@ -75,10 +75,10 @@ const sections = computed((): Section[] | [] => {
     <!-- TODO: Add all  WrapperComponent props later -->
     <WrapperComponent
       :card-skeleton="true"
-      :isLoading="pending || status === 'pending'"
-      :is-pending="pending || status === 'pending'"
+      :isLoading="status === 'pending' || status === 'idle'"
+      :is-pending="status === 'pending' || status === 'idle'"
       :error="error ?? undefined"
-      :is-empty="sections?.length === 0 && !pending"
+      :is-empty="sections?.length === 0 && status !== 'pending'"
     >
       <template #content>
         <div class="px-10 text-center">
