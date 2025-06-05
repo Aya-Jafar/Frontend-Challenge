@@ -3,11 +3,11 @@ import Logo from "~/components/home/nav/Logo.vue";
 import Search from "~/components/home/nav/Search.vue";
 import LanguageSwitcher from "~/components/home/nav/LanguageSwitcher.vue";
 import AccountButton from "~/components/home/nav/AccountButton.vue";
-import useCart from "../../../stores/products/card";
-import useWishList from "~/stores/products/wishlist";
+import useCardStore from "../../../stores/products/card";
+import useWishListStore from "~/stores/products/wishlist";
 
-const { card } = useCart();
-const { wishlist } = useWishList();
+const { card } = useCardStore();
+const { wishlist } = useWishListStore();
 </script>
 
 <template>

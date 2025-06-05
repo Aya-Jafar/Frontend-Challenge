@@ -4,14 +4,9 @@ import WrapperComponent from "~/components/common/WrapperComponent.vue";
 import { SSR_ENDPOINTS } from "~/utils/SSR-endpoint";
 import { computed } from "vue";
 import Snackbar from "~/components/common/Snackbar.vue";
-import {
-  preparePrdoucts,
-  preparePrdouctsProperties,
-} from "~/stores/products/products";
-import {
-  prepareBanners,
-  prepareBannersProperties,
-} from "~/stores/products/banners";
+import Loading from "~/components/common/Loading.vue";
+import useProdcutsStore from "~/stores/products/products";
+import useBannersStore from "~/stores/products/banners";
 import {
   type Type,
   type Section,
@@ -31,9 +26,11 @@ const Grid = defineAsyncComponent(
 const BannersGrid = defineAsyncComponent(
   () => import("~/components/home/products/BannersGrid.vue")
 );
-const { data, error, status, refresh } = await useFetch<RawSection[]>(
+const { data, error, status } = await useFetch<RawSection[]>(
   SSR_ENDPOINTS.HOME
 );
+const store = useProdcutsStore();
+const bannerStore = useBannersStore();
 
 const isProductSection = (type: Type): type is "products" =>
   type === "products";
@@ -51,21 +48,31 @@ const sections = computed((): Section[] | [] => {
     if (isProductSection(section.type)) {
       return {
         type: section.type,
-        content: preparePrdoucts(section?.content as Product[]),
-        properties: preparePrdouctsProperties(
+        content: store.preparePrdoucts(section?.content as Product[]),
+        properties: store.preparePrdouctsProperties(
           section?.properties as ProductProperties
         ),
       };
     } else {
       return {
         type: section.type,
-        content: prepareBanners(section?.content),
-        properties: prepareBannersProperties(
+        content: bannerStore.prepareBanners(section?.content),
+        properties: bannerStore.prepareBannersProperties(
           (section?.properties as BannerGridProperties) || {}
         ),
       };
     }
   });
+});
+
+const {
+  displayedData: lazySections,
+  hasMore,
+  isLoading,
+  reachedEnd,
+} = useLazyScroll(sections, {
+  initialCount: 2,
+  increment: 1,
 });
 </script>
 
@@ -85,11 +92,11 @@ const sections = computed((): Section[] | [] => {
       <template #content>
         <div class="px-10 text-center">
           <!-- Each section is eaither of type "grid" or "products" -->
-          <template v-for="(section, index) in sections" :key="index">
+          <template v-for="(section, index) in lazySections" :key="index">
             <Grid
               v-if="section.type === 'products'"
               :data="section.content"
-              :proprties="section.properties"
+              :properties="section.properties"
             />
             <BannersGrid
               v-if="section.type === 'grid'"
@@ -97,6 +104,25 @@ const sections = computed((): Section[] | [] => {
               :properties="section.properties"
             />
           </template>
+        </div>
+
+        <div
+          v-if="hasMore"
+          ref="reachedEnd"
+          class="h-1 w-full bg-transparent"
+        ></div>
+
+        <!-- Loading indicator -->
+        <div v-if="isLoading" class="flex justify-center min-h-[100px]">
+          <Loading />
+        </div>
+
+        <!-- No more content indicator -->
+        <div
+          v-if="!hasMore && lazySections.length > 0"
+          class="py-8 text-gray-500 flex items-center justify-center !text-center"
+        >
+          You've reached the end 🙁
         </div>
       </template>
     </WrapperComponent>

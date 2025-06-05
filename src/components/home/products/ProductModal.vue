@@ -2,16 +2,16 @@
 import { onMounted, onBeforeUnmount, ref } from "vue";
 import type { ProductDTO } from "../../../utils/types";
 import BaseButton from "../../common/BaseButton.vue";
-import useCard from "../../../stores/products/card";
+import useCardStore from "../../../stores/products/card";
 import { useSnackbarStore } from "~/stores/snackbar";
-import { useClickOutside } from "~/composables/useClickOutside";
+import useClickOutside from "~/composables/useClickOutside";
 
 const props = defineProps<{
   product: ProductDTO | null;
 }>();
 
 const modalRef = ref<HTMLElement | null>(null);
-const { addToCard } = useCard();
+const { addToCard } = useCardStore();
 const isLoading = ref(false);
 const error = ref(null);
 const { showSnackbar } = useSnackbarStore();

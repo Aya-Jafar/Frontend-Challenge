@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import useWishList from "~/stores/products/wishlist";
-import useCard from "../../../stores/products/card";
+import useWishListStore from "~/stores/products/wishlist";
+import useCardStore from "../../../stores/products/card";
 import type { ProductDTO, ProductPropertiesDTO } from "../../../utils/types";
 import { useSnackbarStore } from "~/stores/snackbar";
 
@@ -13,8 +13,8 @@ const emit = defineEmits<{
   (e: "open-modal", productData: ProductDTO): void;
 }>();
 
-const { addToCard } = useCard();
-const { addToWishlist } = useWishList();
+const { addToCard } = useCardStore();
+const { addToWishlist } = useWishListStore();
 const { showSnackbar } = useSnackbarStore();
 
 

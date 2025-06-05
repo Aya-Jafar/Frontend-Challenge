@@ -3,7 +3,6 @@ import type {
   ContentWrapper,
   Product,
   ProductProperties,
-  
 } from "~/utils/types";
 import {
   ProductsDTOBuilder,
@@ -15,10 +14,26 @@ import {
  * with camelCase keys and default values.
  *
  */
-export const preparePrdoucts = (productsWarpper: Product[]) => {
-  return ProductsDTOBuilder(productsWarpper);
-};
+const useProductsStore = () => {
+  const preparePrdoucts = (productsWarpper: Product[]) => {
+    return ProductsDTOBuilder(productsWarpper);
+  };
 
-export const preparePrdouctsProperties = (properties: ProductProperties) => {
-  return ProductsPropertiesDTOBuilder(properties);
+  const preparePrdouctsProperties = (properties: ProductProperties) => {
+    return ProductsPropertiesDTOBuilder(properties);
+  };
+
+  return {
+    preparePrdoucts,
+    preparePrdouctsProperties,
+  };
 };
+export default useProductsStore;
+
+// export const preparePrdoucts = (productsWarpper: Product[]) => {
+//   return ProductsDTOBuilder(productsWarpper);
+// };
+
+// export const preparePrdouctsProperties = (properties: ProductProperties) => {
+//   return ProductsPropertiesDTOBuilder(properties);
+// };

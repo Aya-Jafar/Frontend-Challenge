@@ -2,7 +2,7 @@ import type { ProductDTO } from "~/utils/types";
 
 type WishlistProduct = ProductDTO & { count: number };
 
-const useWishList = () => {
+const useWishListStore = () => {
   const wishlist = useState<WishlistProduct[]>("wishlist", () => []);
 
   const addToWishlist = (product: ProductDTO) => {
@@ -21,4 +21,4 @@ const useWishList = () => {
   return { wishlist, addToWishlist, removeFromWishlist };
 };
 
-export default useWishList;
+export default useWishListStore;

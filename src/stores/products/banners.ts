@@ -7,16 +7,19 @@ import type { Banner, BannerGridProperties } from "~/utils/types";
  *
  */
 
-export const prepareBanners = (banner: Banner[]) => {
-  return BannerDTOBuilder(banner);
+const useBannersStore = () => {
+  const prepareBanners = (banner: Banner[]) => {
+    return BannerDTOBuilder(banner);
+  };
+
+  const prepareBannersProperties = (properties: BannerGridProperties) => {
+    return BannersPropertiesDTOBuilder(properties);
+  };
+
+  return {
+    prepareBanners,
+    prepareBannersProperties,
+  };
 };
 
-
-/**
- * Transforms raw BannerGridProperties into a DTO with camelCase keys
- * and default values applied.
- *
- */
-export const prepareBannersProperties = (properties: BannerGridProperties) => {
-  return BannersPropertiesDTOBuilder(properties);
-};
+export default useBannersStore;

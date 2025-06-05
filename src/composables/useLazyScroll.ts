@@ -1,75 +1,71 @@
-import { ref, computed } from "vue";
-
-const useLazyScroll = <T>(
-  loader: () => Promise<T[]>,
-  options: {
-    chunkSize?: number;
-    immediate?: boolean;
-    processItem?: (item: any) => T;
-  } = {}
-) => {
-  const {
-    chunkSize = 10,
-    immediate = false,
-    processItem = (item) => item,
-  } = options;
-
-  // States
-  const allItems = ref([]);
-  const visibleItems = ref([]);
-  const currentIndex = ref(0);
+export default function useLazyScroll<T>(
+  fullData: Ref<T[]> | ComputedRef<T[]>,
+  { initialCount = 3, increment = 2, rootMargin = "10px" } = {}
+) {
+  const loadedCount = ref(initialCount);
+  const reachedEnd = ref<HTMLElement | null>(null);
   const isLoading = ref(false);
-  const error = ref<Error | null>(null);
-  const hasMoreItems = ref(true);
+  const displayedData = ref<T[]>([]);
 
-  // Load all data (but only show chunks)
-  const loadAllData = async () => {
-    try {
-      isLoading.value = true;
-      error.value = null;
-      const data = await loader();
-      allItems.value = data.map(processItem) as any;
-      loadNextChunk(); // Load initial chunk
-    } catch (err) {
-      error.value = err as Error;
-    } finally {
+  const hasMore = computed(() => loadedCount.value < fullData.value.length);
+
+  const updateDisplayed = () =>
+    (displayedData.value = fullData.value.slice(0, loadedCount.value));
+
+  // Simulate async loading and update the count
+  const loadMore = () => {
+    if (isLoading.value || !hasMore.value) return;
+
+    isLoading.value = true;
+    setTimeout(() => {
+      loadedCount.value = loadedCount.value + increment;
+      updateDisplayed();
       isLoading.value = false;
+    }, 1000);
+  };
+
+  const createObserver = () => {
+    return new IntersectionObserver(
+      ([entry]) => entry.isIntersecting && hasMore.value && loadMore(),
+      {
+        root: null,
+        rootMargin,
+        threshold: 0.1,
+      }
+    );
+  };
+  let observer: IntersectionObserver | null = null;
+
+  const observe = () => {
+    observer?.disconnect();
+    if (reachedEnd.value) {
+      observer = createObserver();
+      observer.observe(reachedEnd.value);
     }
   };
 
-  // Load next chunk of data
-  const loadNextChunk = () => {
-    if (isLoading.value || !hasMoreItems.value) return;
+  // Reinitialize when fullData changes
+  onMounted(() => {
+    updateDisplayed();
+    nextTick(observe);
+  });
 
-    const nextChunk = allItems.value.slice(
-      currentIndex.value,
-      currentIndex.value + chunkSize
-    );
+  // Reinitialize when fullData changes
+  watch(fullData, () => {
+    loadedCount.value = initialCount;
+    updateDisplayed();
+    nextTick(observe);
+  });
 
-    visibleItems.value = [...visibleItems.value, ...nextChunk];
-    currentIndex.value += chunkSize;
-    hasMoreItems.value = currentIndex.value < allItems.value.length;
-  };
+  // Re-observe if the tracker element changes
+  watch(reachedEnd, () => nextTick(observe));
 
-  // Initialize if immediate
-  if (immediate) {
-    loadAllData();
-  }
+  onUnmounted(() => observer?.disconnect());
 
   return {
-    visibleItems,
+    displayedData,
+    hasMore,
     isLoading,
-    error,
-    hasMoreItems,
-    loadAllData,
-    loadNextChunk,
-    reset: () => {
-      allItems.value = [];
-      visibleItems.value = [];
-      currentIndex.value = 0;
-      hasMoreItems.value = true;
-    },
+    reachedEnd,
   };
-};
-
-export default useLazyScroll;
+}

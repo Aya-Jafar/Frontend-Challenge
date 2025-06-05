@@ -2,7 +2,7 @@ import type { ProductDTO } from "~/utils/types";
 
 type CartProduct = ProductDTO & { count: number };
 
-const useCard = () => {
+const useCardStore = () => {
   const card = useState<CartProduct[]>("card", () => []);
 
   const addToCard = (product: ProductDTO) => {
@@ -21,4 +21,4 @@ const useCard = () => {
   return { card, addToCard, removeFromCard };
 };
 
-export default useCard;
+export default useCardStore;

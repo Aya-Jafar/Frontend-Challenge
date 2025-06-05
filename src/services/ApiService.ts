@@ -61,7 +61,6 @@ export class APIService {
     const API_BASE_URL = useRuntimeConfig().public.API_BASE_URL;
     const url = `${API_BASE_URL}/${endpoint}${pathParams}`;
 
-    console.log("URL", url);
 
     try {
       const response = await fetch(url, {

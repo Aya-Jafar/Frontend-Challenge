@@ -1,6 +1,6 @@
 import { onMounted, onBeforeUnmount } from "vue";
 
-export function useClickOutside(
+export default function useClickOutside(
   targetElementRef: Ref<HTMLElement | null>,
   callback: () => void
 ) {

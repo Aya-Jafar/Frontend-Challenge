@@ -22,7 +22,6 @@ export default defineEventHandler(
         method: "GET",
       });
 
-      // console.log("Fetched data:", data);
       return data?.content || [];
     } catch (error) {
       return { error: "Something went wrong fetching the API data 💥" };
