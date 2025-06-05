@@ -9,7 +9,7 @@ const props = defineProps({
     type: Array<ProductDTO>,
     default: () => [],
   },
-  proprties: {
+  properties: {
     type: Object as () => ProductPropertiesDTO,
     default: () => ({}),
   },
@@ -37,7 +37,7 @@ const openProductModal = (clickedProduct: ProductDTO) => {
         :key="String(product.id)"
         :product-data="product"
         @open-modal="openProductModal"
-        :properties="proprties"
+        :properties="properties"
       />
     </div>
     <ProductModal
