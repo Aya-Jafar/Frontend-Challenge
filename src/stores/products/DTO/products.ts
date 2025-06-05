@@ -8,30 +8,28 @@ import type {
 
 /**
  * `Data Transfer Object` to safely extract product data from ContentWrapper
- * @params {ContentWrapper} wrapper - The content wrapper containing product data
- * @returns {ProductDTO[]} - An array of ProductDTO objects with the desired keys
+ * @param {Product[]} wrapper - Array of raw product objects from the backend.
+ * @returns {ProductDTO[]} A cleaned array of product data with transformed keys and fallbacks.
  */
 
-export const ProductsDTOBuilder = (wrapper: ContentWrapper): ProductDTO[] => {
+export const ProductsDTOBuilder = (wrapper: Product[]): ProductDTO[] => {
   if (!wrapper || !Array.isArray(wrapper)) {
     return [];
   }
   /**
-   * What we input is in this structure :
-   * [
-   *  {type:"products", content:[...] },
-   *  .....
-   * ]
-   * each content array is of type Product
+   *  What we input is in this structure :
+   *  [{},{},...]
    *
-   * What we need is in new structure :
-   * flat array of prodcuts
-   *  [ .... ]
+   * each object in array is of @type Product
    *
-   * But now each object inside content is of type ProductDTO
+   *  What we need is in new structure :
+   *  flat array of prodcuts
+   *  [ {},{},...]
+   *
+   * But now each object inside content is of @type ProductDTO
    */
 
-  return wrapper.map(
+  return wrapper?.map(
     (product: Product): ProductDTO => ({
       type: product?.type,
 
@@ -56,15 +54,16 @@ export const ProductsDTOBuilder = (wrapper: ContentWrapper): ProductDTO[] => {
       merchant: product?.merchant?.title || "Unknown Merchant",
       merchantIcon: product?.merchant?.icon || "",
       merchantBgColor: product?.merchant?.bg_color || "",
-
-      titleLines: product?.properties?.title_lines || "",
     })
   );
 };
 
 /**
- * Data Transfer Object to safely extract the necessary product properties data
+ * Converts raw product UI display properties from backend format (`ProductProperties`)
+ * to the frontend-friendly `ProductPropertiesDTO` format.
  *
+ * @param {ProductProperties} properties - Raw product layout settings from backend.
+ * @returns {ProductPropertiesDTO} A cleaned and camelCased object with safe defaults for rendering.
  */
 export const ProductsPropertiesDTOBuilder = (
   properties: ProductProperties

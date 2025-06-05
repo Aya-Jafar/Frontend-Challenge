@@ -10,7 +10,7 @@ import type {
  *
  */
 export const BannerDTOBuilder = (banners: Banner[]): BannerDTO[] => {
-  return banners.map((banner) => ({
+  return banners?.map((banner) => ({
     id: banner.id || "",
     imageURL: banner.image || "",
     title: banner.title || "",

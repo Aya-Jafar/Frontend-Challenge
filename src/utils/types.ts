@@ -1,5 +1,21 @@
 export type Type = "products" | "grid";
 
+export type RawSection =
+  | {
+      type: "products";
+      content: Product[];
+      properties: ProductProperties;
+    }
+  | {
+      type: "grid";
+      content: Banner[];
+      properties: BannerGridProperties;
+    };
+
+export interface ApiResponse {
+  content: RawSection[];
+}
+
 export type Section =
   | {
       type: "products";
@@ -33,8 +49,8 @@ export interface ProductPropertiesDTO {
 }
 
 export interface Product {
-  id: string;
   type: Type;
+  id: string;
   url: string;
   brand: string;
   image: string;
@@ -61,7 +77,6 @@ export interface Product {
     icon: string;
   };
   properties: ProductProperties;
-  titleLines: string;
 }
 
 export interface Tag {
@@ -99,9 +114,6 @@ export interface ProductDTO {
   bottomTagIcon?: string;
 
   type: Type;
-
-  // margineTop: string | null;
-  titleLines: string | null;
 }
 
 export type Banner = {

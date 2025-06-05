@@ -16,6 +16,8 @@ import {
   type Type,
   type Section,
   type ProductPropertiesDTO,
+  type RawSection,
+  type BannerGridProperties,
 } from "~/utils/types";
 
 /**
@@ -30,7 +32,7 @@ const Grid = defineAsyncComponent(
 const BannersGrid = defineAsyncComponent(
   () => import("~/components/home/products/BannersGrid.vue")
 );
-const { data, error, status } = useLazyFetch(SSR_ENDPOINTS.HOME);
+const { data, error, status } = useLazyFetch<RawSection[]>(SSR_ENDPOINTS.HOME);
 
 const isProductSection = computed(() => {
   return (section: Type) => section === "products";
@@ -45,21 +47,22 @@ const sections = computed((): Section[] | [] => {
   if (!Array.isArray(data.value)) return [];
 
   // Pre-process each section data
-  return data.value.map((section: any) => {
+  return data.value.map((section: RawSection) => {
     if (isProductSection.value(section.type)) {
       return {
         type: section.type,
-        content: preparePrdoucts(section?.content || []) as ProductDTO[],
+        content: preparePrdoucts(section?.content as Product[]) as ProductDTO[],
+
         properties: preparePrdouctsProperties(
-          section?.properties || {}
+          section?.properties as ProductProperties
         ) as ProductPropertiesDTO,
       };
     } else {
       return {
         type: section.type,
-        content: prepareBanners(section?.content || []) as BannerDTO[],
+        content: prepareBanners(section?.content) as BannerDTO[],
         properties: prepareBannersProperties(
-          section?.properties || {}
+          (section?.properties as BannerGridProperties) || {}
         ) as BannerGridPropertiesDTO,
       };
     }

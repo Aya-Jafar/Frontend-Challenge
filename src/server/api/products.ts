@@ -1,4 +1,9 @@
-import { ContentWrapper, Product } from "./../../utils/types";
+import {
+  ContentWrapper,
+  Product,
+  RawSection,
+  ApiResponse,
+} from "./../../utils/types";
 import { APIService } from "./../../services/ApiService";
 import { ENDPOINTS } from "../../utils/endpoints";
 import { defineEventHandler } from "h3";
@@ -10,15 +15,15 @@ import { defineEventHandler } from "h3";
  * @returns {Promise<Object>} The parsed JSON data from the file.
  */
 export default defineEventHandler(
-  async (): Promise<Product[] | { error: string }> => {
+  async (): Promise<ApiResponse[] | { error: string }> => {
     try {
-      const data = await APIService.request<ContentWrapper>({
+      const data = await APIService.request<{ content: ApiResponse[] }>({
         endpoint: ENDPOINTS.PRODUCTS,
         method: "GET",
       });
-      
-      return data?.content || [];
 
+      // console.log("Fetched data:", data);
+      return data?.content || [];
     } catch (error) {
       return { error: "Something went wrong fetching the API data 💥" };
     }

@@ -3,17 +3,22 @@ import type {
   ContentWrapper,
   Product,
   ProductProperties,
+  
 } from "~/utils/types";
 import {
   ProductsDTOBuilder,
   ProductsPropertiesDTOBuilder,
 } from "./DTO/products";
 
-export const preparePrdoucts = (productsWarpper: ContentWrapper) => {
+/**
+ * These functions prepare and transform raw product properties data into a DTO
+ * with camelCase keys and default values.
+ *
+ */
+export const preparePrdoucts = (productsWarpper: Product[]) => {
   return ProductsDTOBuilder(productsWarpper);
 };
 
 export const preparePrdouctsProperties = (properties: ProductProperties) => {
   return ProductsPropertiesDTOBuilder(properties);
 };
-
