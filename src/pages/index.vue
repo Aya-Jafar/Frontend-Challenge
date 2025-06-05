@@ -33,6 +33,7 @@ const { data, error, status } = await useFetch<RawSection[]>(
 const store = useProdcutsStore();
 const bannerStore = useBannersStore();
 const { isOnline } = useOnline();
+const isComponentsLoading = ref(true);
 
 /**
  * Checks if the section type is a product section and prepares each section data seperatly.
@@ -76,6 +77,13 @@ const {
   initialCount: 2,
   increment: 1,
 });
+
+// After all async components are loaded
+onMounted(() => {
+  Promise.all([DefaultLayout, Grid, BannersGrid]).then(() => {
+    isComponentsLoading.value = false;
+  });
+});
 </script>
 
 <template>
@@ -83,11 +91,15 @@ const {
   <DefaultLayout>
     <!-- Wrapper component to handle different states of data (loading,error, empty) -->
 
-    <!-- TODO: Add all  WrapperComponent props later -->
     <WrapperComponent
       :card-skeleton="true"
-      :is-loading="status === 'pending' || status === 'idle'"
-      :is-pending="status === 'pending' || status === 'idle'"
+      :is-loading="
+        status === 'pending' || status === 'idle' || isComponentsLoading
+      "
+      :is-pending="
+        status === 'pending' || status === 'idle' || isComponentsLoading
+      "
+      :is-success="status === 'success' && !isComponentsLoading"
       :error="error ?? undefined"
       :is-online="isOnline ?? true"
       :is-empty="sections?.length === 0 && status !== 'pending' && isOnline"
