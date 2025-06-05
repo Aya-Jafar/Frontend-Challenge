@@ -18,8 +18,6 @@ const useToggleActions = () => {
   }) => {
     return (item: T) => {
       if (checkFn(item.id)) {
-        console.log("hreeere");
-        
         removeFn(item.id);
         showSnackbar(removeMessage, "info");
       } else {

@@ -5,8 +5,17 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-05-15",
   devtools: { enabled: false },
   srcDir: "src/",
-  components: true,
+
+  components: {
+    global: true,
+    dirs: ["~/components"],
+  },
+  imports: {
+    autoImport: true,
+  },
+  
   css: ["~/assets/css/app.css"],
+  pages: true,
   vite: {
     plugins: [tailwindcss()],
   },
@@ -22,7 +31,7 @@ export default defineNuxtConfig({
     static: true,
     publicAssets: [
       {
-        dir: "../public",
+        dir: "./public",
         baseURL: "/",
       },
     ],
