@@ -4,35 +4,20 @@ import type { ProductDTO } from "../../../utils/types";
 import BaseButton from "../../common/BaseButton.vue";
 import useCard from "../../../stores/products/card";
 import { useSnackbarStore } from "~/stores/snackbar";
+import { useClickOutside } from "~/composables/useClickOutside";
 
 const props = defineProps<{
   product: ProductDTO | null;
 }>();
 
 const modalRef = ref<HTMLElement | null>(null);
-const { card, addToCard } = useCard();
-
-const emit = defineEmits(["close"]);
+const { addToCard } = useCard();
 const isLoading = ref(false);
 const error = ref(null);
 const { showSnackbar } = useSnackbarStore();
 
-
-// TODO: Refactor this into compasables
-// Event handers for outside click
-const handleClickOutside = (event: MouseEvent) => {
-  if (modalRef.value && !modalRef.value.contains(event.target as Node)) {
-    emit("close");
-  }
-};
-
-onMounted(() => {
-  document.addEventListener("mousedown", handleClickOutside);
-});
-
-onBeforeUnmount(() => {
-  document.removeEventListener("mousedown", handleClickOutside);
-});
+const emit = defineEmits(["close"]);
+useClickOutside(modalRef, () => emit("close"));
 
 // Handle add to cart
 const handleAddToCart = () => {
@@ -40,7 +25,7 @@ const handleAddToCart = () => {
   showSnackbar("Item added to card!", "success");
 };
 </script>
-
+c
 <template>
   <div
     class="fixed text-right inset-0 z-50 bg-black/50 flex items-center justify-center"

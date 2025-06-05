@@ -1,8 +1,8 @@
-<script setup>
+<script setup lang="ts">
 /**
  * This component is a wrapper that handles various states such as loading, network error, server error, and empty data.
- * It leverages Vuetify's theme and dynamic imports for different states' illustrations.
  * Props are used to manage the states and slots provide flexibility for custom UI components.
+ *
  */
 const props = defineProps({
   error: Object,
@@ -22,7 +22,7 @@ const props = defineProps({
 
 <template>
   <div class="w-full h-full">
-    <!-- 🌀 Loading State -->
+    <!--  Loading State -->
     <slot name="loading" v-if="props.isLoading">
       <div
         v-if="props.cardSkeleton"
@@ -47,7 +47,7 @@ const props = defineProps({
       </div>
     </slot>
 
-    <!-- 🌐 Network Error -->
+    <!-- Network Error -->
     <slot name="networkError" v-else-if="props.error && !props.error.response">
       <div
         class="flex flex-col justify-center items-center w-full h-full text-center"
@@ -64,7 +64,7 @@ const props = defineProps({
       </div>
     </slot>
 
-    <!-- 💥 Server Error -->
+    <!--  Server Error -->
     <slot name="serverError" v-else-if="props.error && props.error.response">
       <div
         class="flex flex-col justify-center items-center w-full h-full text-center"
@@ -81,7 +81,7 @@ const props = defineProps({
       </div>
     </slot>
 
-    <!-- 📭 Empty State -->
+    <!--  Empty State -->
     <slot name="empty" v-else-if="props.isEmpty">
       <div
         class="flex flex-col justify-center items-center w-full h-full text-center"
@@ -95,7 +95,7 @@ const props = defineProps({
       </div>
     </slot>
 
-    <!-- 🎯 Success Content -->
+    <!--  Success Content -->
     <div v-else>
       <slot />
       <slot name="content" />

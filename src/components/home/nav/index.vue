@@ -19,7 +19,9 @@ const { wishlist } = useWishList();
       <Logo class="scale-90" />
       <div class="flex items-center gap-2">
         <!-- Wishlist -->
-        <button class="rounded-[12px] p-2 flex items-center justify-center">
+        <button
+          class="rounded-[12px] p-2 flex items-center justify-center gap-1"
+        >
           <img
             src="/assets/images/heart-empty.png"
             class="w-5 h-5"
@@ -30,9 +32,10 @@ const { wishlist } = useWishList();
 
         <!-- Cart -->
         <button
-          class="bg-[#FFE9E9] rounded-[12px] p-2 flex items-center justify-center"
+          class="bg-[#FFE9E9] rounded-[12px] p-2 flex items-center justify-center gap-1"
         >
           <img src="/assets/images/nav-cart.png" class="w-5 h-5" alt="cart" />
+          {{ card.length }}
         </button>
       </div>
     </div>
@@ -41,14 +44,14 @@ const { wishlist } = useWishList();
     <div class="hidden md:flex items-center gap-3">
       <!-- Cart -->
       <button
-        class="bg-[#FFE9E9] rounded-[12px] p-2 flex items-center justify-center"
+        class="bg-[#FFE9E9] rounded-[12px] p-2 flex items-center justify-center gap-1"
       >
         <img src="/assets/images/nav-cart.png" class="w-5 h-5" alt="cart" />
         {{ card.length }}
       </button>
 
       <!-- Wishlist -->
-      <button class="rounded-[12px] p-2 flex items-center justify-center">
+      <button class="rounded-[12px] p-2 flex items-center justify-center gap-1">
         <img
           src="/assets/images/heart-empty.png"
           class="w-5 h-5"
