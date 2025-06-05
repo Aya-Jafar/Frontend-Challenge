@@ -1,8 +1,8 @@
 import type {
-  Banner,
-  ContentWrapper,
   Product,
+  ProductDTO,
   ProductProperties,
+  ProductPropertiesDTO,
 } from "~/utils/types";
 import {
   ProductsDTOBuilder,
@@ -15,11 +15,13 @@ import {
  *
  */
 const useProductsStore = () => {
-  const preparePrdoucts = (productsWarpper: Product[]) => {
+  const preparePrdoucts = (productsWarpper: Product[]): ProductDTO[] => {
     return ProductsDTOBuilder(productsWarpper);
   };
 
-  const preparePrdouctsProperties = (properties: ProductProperties) => {
+  const preparePrdouctsProperties = (
+    properties: ProductProperties
+  ): ProductPropertiesDTO => {
     return ProductsPropertiesDTOBuilder(properties);
   };
 
@@ -29,11 +31,3 @@ const useProductsStore = () => {
   };
 };
 export default useProductsStore;
-
-// export const preparePrdoucts = (productsWarpper: Product[]) => {
-//   return ProductsDTOBuilder(productsWarpper);
-// };
-
-// export const preparePrdouctsProperties = (properties: ProductProperties) => {
-//   return ProductsPropertiesDTOBuilder(properties);
-// };

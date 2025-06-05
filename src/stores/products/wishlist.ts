@@ -18,7 +18,11 @@ const useWishListStore = () => {
     wishlist.value = wishlist.value.filter((item) => item.id !== productId);
   };
 
-  return { wishlist, addToWishlist, removeFromWishlist };
+  const isInWishlist = (productId: string | number): boolean => {
+    return wishlist.value.some((item) => item.id === productId);
+  };
+
+  return { wishlist, addToWishlist, removeFromWishlist, isInWishlist };
 };
 
 export default useWishListStore;

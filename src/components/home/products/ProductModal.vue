@@ -5,27 +5,33 @@ import BaseButton from "../../common/BaseButton.vue";
 import useCardStore from "../../../stores/products/card";
 import { useSnackbarStore } from "~/stores/snackbar";
 import useClickOutside from "~/composables/useClickOutside";
+import useToggleActions from "~/stores/products/actions";
 
 const props = defineProps<{
   product: ProductDTO | null;
 }>();
-
+// Model states
 const modalRef = ref<HTMLElement | null>(null);
-const { addToCard } = useCardStore();
+const { addToCard, isInCard, removeFromCard } = useCardStore();
 const isLoading = ref(false);
 const error = ref(null);
-const { showSnackbar } = useSnackbarStore();
 
+// Outside click handling
 const emit = defineEmits(["close"]);
 useClickOutside(modalRef, () => emit("close"));
 
-// Handle add to cart
-const handleAddToCart = () => {
-  addToCard(props.product!);
-  showSnackbar("Item added to card!", "success");
-};
+// Handle add to card
+const { createToggleHandler } = useToggleActions();
+
+const toggleCard = createToggleHandler({
+  checkFn: isInCard,
+  addFn: addToCard,
+  removeFn: removeFromCard,
+  addMessage: "Item added to card!",
+  removeMessage: "Item removed from card!",
+});
 </script>
-c
+
 <template>
   <div
     class="fixed text-right inset-0 z-50 bg-black/50 flex items-center justify-center"
@@ -49,7 +55,7 @@ c
         ></div>
       </div>
 
-      <!-- 🧠 Title + Close -->
+      <!--  Title + Close -->
       <div class="flex justify-between items-start">
         <button
           @click="$emit('close')"
@@ -65,7 +71,7 @@ c
         </h2>
       </div>
 
-      <!-- 🎨 Colors -->
+      <!--  Colors -->
       <span v-if="product?.colors" class="text-sm text-black">الالوان</span>
 
       <div v-if="product?.colors" class="flex gap-1 justify-end">
@@ -77,7 +83,7 @@ c
         ></div>
       </div>
 
-      <!-- 🖼️ Image -->
+      <!--  Image -->
       <div class="flex justify-end">
         <div
           class="w-1/2 h-48 bg-white border product-border-color rounded-lg overflow-hidden flex justify-end"
@@ -91,24 +97,26 @@ c
         </div>
       </div>
 
-      <!-- 📦 Details -->
+      <!--  Details -->
       <div v-if="product" class="text-right">
         <!-- Show any details here -->
       </div>
 
-      <!-- 🔘 Bottom Buttons -->
+      <!--  Bottom Buttons -->
       <div class="flex justify-between items-center mt-4">
         <!-- Left Side Buttons -->
         <div class="flex gap-2">
-          <BaseButton variant="outline" color="primary"> الغاء </BaseButton>
+          <BaseButton variant="outline" color="primary" @click="emit('close')">
+            الغاء
+          </BaseButton>
 
           <BaseButton
             variant="solid"
             color="primary"
             class="px-5"
-            @click="handleAddToCart"
+            @click="toggleCard(props.product!)"
           >
-            اضافة الى السلة
+            {{ isInCard(product!.id) ? "حذف من السلة" : "اضافة الى السلة" }}
           </BaseButton>
         </div>
         <!-- Right Side price -->

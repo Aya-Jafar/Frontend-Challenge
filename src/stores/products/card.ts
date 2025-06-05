@@ -17,8 +17,11 @@ const useCardStore = () => {
   const removeFromCard = (productId: string | number) => {
     card.value = card.value.filter((item) => item.id !== productId);
   };
+  const isInCard = (productId: string | number): boolean => {
+    return card.value.some((item) => item.id === productId);
+  }
 
-  return { card, addToCard, removeFromCard };
+  return { card, addToCard, removeFromCard, isInCard };
 };
 
 export default useCardStore;

@@ -7,7 +7,8 @@ const props = defineProps<{
   customClass?: string;
 }>();
 
-const baseClasses = "rounded-[16px] px-6 py-2 text-sm font-semibold transition";
+const baseClasses =
+  "rounded-[16px] px-6 py-2 text-sm font-semibold transition  cursor-pointer";
 
 const variantClasses = {
   solid: {
@@ -34,9 +35,10 @@ const buttonClass = computed(() => {
   }`;
 });
 
-const handleClick = () => {
+const handleClick = (e:MouseEvent) => {
   emit("click");
   emit("class", buttonClass.value);
+  e.stopPropagation();
 };
 </script>
 

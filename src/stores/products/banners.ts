@@ -1,18 +1,24 @@
 import { BannerDTOBuilder, BannersPropertiesDTOBuilder } from "./DTO/banners";
-import type { Banner, BannerGridProperties } from "~/utils/types";
-
-/**
- * Transforms an array of raw Banner objects into BannerDTOs
- * suitable for UI or further processing.
- *
- */
+import type {
+  Banner,
+  BannerDTO,
+  BannerGridProperties,
+  BannerGridPropertiesDTO,
+} from "~/utils/types";
 
 const useBannersStore = () => {
-  const prepareBanners = (banner: Banner[]) => {
+  /**
+   * Transforms an array of raw Banner objects into BannerDTOs
+   * suitable for UI or further processing.
+   *
+   */
+  const prepareBanners = (banner: Banner[]): BannerDTO[] => {
     return BannerDTOBuilder(banner);
   };
 
-  const prepareBannersProperties = (properties: BannerGridProperties) => {
+  const prepareBannersProperties = (
+    properties: BannerGridProperties
+  ): BannerGridPropertiesDTO => {
     return BannersPropertiesDTOBuilder(properties);
   };
 

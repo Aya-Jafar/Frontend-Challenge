@@ -3,6 +3,7 @@ import useWishListStore from "~/stores/products/wishlist";
 import useCardStore from "../../../stores/products/card";
 import type { ProductDTO, ProductPropertiesDTO } from "../../../utils/types";
 import { useSnackbarStore } from "~/stores/snackbar";
+import useToggleActions from "~/stores/products/actions";
 
 const props = defineProps<{
   productData: ProductDTO;
@@ -13,19 +14,26 @@ const emit = defineEmits<{
   (e: "open-modal", productData: ProductDTO): void;
 }>();
 
-const { addToCard } = useCardStore();
-const { addToWishlist } = useWishListStore();
-const { showSnackbar } = useSnackbarStore();
+const { addToCard, removeFromCard, isInCard } = useCardStore();
+const { addToWishlist, isInWishlist, removeFromWishlist } = useWishListStore();
+const { createToggleHandler } = useToggleActions();
 
 
-const handleAddToCard = () => {
-  addToCard(props.productData!);
-  showSnackbar("Item added to card!", "success");
-};
-const handleAddToWishList = () => {
-  addToWishlist(props.productData!);
-  showSnackbar("Item added to wishlist!", "success");
-};
+const toggleCard = createToggleHandler({
+  checkFn: isInCard,
+  addFn: addToCard,
+  removeFn: removeFromCard,
+  addMessage: "Item added to card!",
+  removeMessage: "Item removed from card!",
+});
+
+const toggleWishlist = createToggleHandler({
+  checkFn: isInWishlist,
+  addFn: addToWishlist,
+  removeFn: removeFromWishlist,
+  addMessage: "Item added to wishlist!",
+  removeMessage: "Item removed from wishlist!",
+});
 </script>
 
 <template>
@@ -36,16 +44,27 @@ const handleAddToWishList = () => {
     <!-- Heart Button -->
     <button
       v-if="properties.hasFavouriteBtn"
-      @click.stop="handleAddToWishList"
+      @click.stop="toggleWishlist(props.productData!)"
       class="absolute cursor-pointer top-3 right-3 bg-white shadow-md rounded-[8px] p-2 flex items-center justify-center"
     >
-      <img src="~/assets/images/heart-filled.png" class="w-6 h-6" alt="heart" />
+      <img
+        src="~/assets/images/heart-filled.png"
+        class="w-6 h-6"
+        alt="heart"
+        v-if="isInWishlist(productData.id)"
+      />
+      <img
+        src="~/assets/images/heart-empty.png"
+        class="w-6 h-6"
+        alt="heart"
+        v-else
+      />
     </button>
 
     <!--  Cart Button -->
     <button
       v-if="properties.hasCartBtn"
-      @click.stop="handleAddToCard"
+      @click.stop="toggleCard(props.productData!)"
       class="absolute top-32 right-3 bg-white rounded-[8px] p-2 flex items-center justify-center shadow-sm"
     >
       <img src="~/assets/images/shop-cart.png" class="w-6 h-6" alt="cart" />
