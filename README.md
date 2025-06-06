@@ -37,7 +37,9 @@ frontend-challenge/
 <br/>
 <br/>
 
-# DTO (Data Transfer Object) approch
+# Implementation Notes
+
+## DTO (Data Transfer Object) approch
 
 Since the data returned from the API is not always the same especially for nested data, I used DTOs to define the data structure and preprocess it.
 This allows me to have a clear contract for the data I expect from the API and handle any changes in the API response wit the minimum changes in frontend code.
@@ -54,6 +56,39 @@ export const ProductsDTOBuilder = (wrapper: Product[]): ProductDTO[] => {
     })
   );
 };
+```
+
+## Lazy loading with nested data
+
+Since API data is in this structure:
+
+```json
+{
+  "content":[
+    [
+      {"type":"products","content":[...]},
+      {"type":"grid","content":[...]},
+      {"type":"products","content":[...]},
+    ]
+  ]
+}
+```
+
+We need to make a lazy loading for both the main "content" objects and the inner "content" objects.
+To achieve this, I created a composable function `useLazyScroll` that simulate the lazy loading logic for any given data.
+
+### Example of using lazy loading composable
+
+```typescript
+const {
+  displayedData: lazyProducts,
+  hasMore,
+  isLoading, 
+  endTracker, // ref for the end of the list to track scroll
+} = useLazyScroll(data, {
+  initialCount: 20, // initial number of items to display
+  increment: 20, // number of items to load on each scroll
+});
 ```
 
 # Multiple states handling in one wrapper component example
