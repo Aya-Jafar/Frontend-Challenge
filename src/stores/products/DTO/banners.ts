@@ -6,8 +6,11 @@ import type {
 } from "~/utils/types";
 
 /**
- * Data Transfer Object to safely extract the necessary banners data
+ * Transforms raw Banner data into BannerDTOs with default fallbacks.
+ * Ensures safe access to nested properties.
  *
+ * @param banners - Array of raw Banner objects.
+ * @returns Array of BannerDTO objects ready for UI consumption.
  */
 export const BannerDTOBuilder = (banners: Banner[]): BannerDTO[] => {
   return banners?.map((banner) => ({
@@ -19,6 +22,13 @@ export const BannerDTOBuilder = (banners: Banner[]): BannerDTO[] => {
   }));
 };
 
+
+/**
+ * Converts raw BannerGridProperties to a DTO with camelCase keys and defaults.
+ *
+ * @param properties - Raw BannerGridProperties object.
+ * @returns BannerGridPropertiesDTO with normalized properties.
+ */
 export const BannersPropertiesDTOBuilder = (
   properties: BannerGridProperties
 ): BannerGridPropertiesDTO => {
