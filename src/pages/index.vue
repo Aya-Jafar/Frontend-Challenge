@@ -68,6 +68,7 @@ const sections = computed((): Section[] | [] => {
   });
 });
 
+// Lazy load the sections data
 const {
   displayedData: lazySections,
   hasMore,
@@ -105,7 +106,7 @@ onMounted(() => {
       :is-empty="sections?.length === 0 && status !== 'pending' && isOnline"
     >
       <template #content>
-        <div class="px-10 text-center">
+        <div class="w-full max-w-[1257px] mx-auto">
           <!-- Each section is eaither of type "grid" or "products" -->
           <template v-for="(section, index) in lazySections" :key="index">
             <Grid
