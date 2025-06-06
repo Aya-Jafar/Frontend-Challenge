@@ -3,9 +3,9 @@ import { onMounted, onBeforeUnmount, ref } from "vue";
 import type { ProductDTO } from "../../../utils/types";
 import BaseButton from "../../common/BaseButton.vue";
 import useCardStore from "../../../stores/products/card";
-import { useSnackbarStore } from "~/stores/snackbar";
 import useClickOutside from "~/composables/useClickOutside";
 import useToggleActions from "~/stores/products/actions";
+import ProductModalSkeleton from "./ProductModalSkeleton.vue";
 
 const props = defineProps<{
   product: ProductDTO | null;
@@ -30,13 +30,24 @@ const toggleCard = createToggleHandler({
   addMessage: "Item added to card!",
   removeMessage: "Item removed from card!",
 });
+
+onMounted(() => {
+  isLoading.value = true;
+  // Simualte delay
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 300);
+});
 </script>
 
 <template>
   <div
     class="fixed text-right inset-0 z-50 bg-black/50 flex items-center justify-center"
   >
+    <ProductModalSkeleton v-if="isLoading" />
+
     <div
+      v-else
       ref="modalRef"
       class="bg-white rounded-xl w-[500px] max-w-[90%] p-6 relative flex flex-col gap-4"
     >
@@ -45,24 +56,14 @@ const toggleCard = createToggleHandler({
         {{ error }}
       </div>
 
-      <!-- Loading Indicator -->
-      <div
-        v-if="isLoading"
-        class="absolute inset-0 bg-white/80 flex items-center justify-center"
-      >
-        <div
-          class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"
-        ></div>
-      </div>
-
       <!--  Title + Close -->
-      <div class="flex justify-between items-start">
-        <button
+      <div class="flex justify-between items-end" v-else>
+        <img
+          src="~/assets/images/close.svg"
+          alt="close"
+          class="w-10 h-10"
           @click="$emit('close')"
-          class="text-gray-500 hover:text-red-500 text-xl"
-        >
-          ✖
-        </button>
+        />
         <h2
           class="text-lg font-bold text-right flex-1 text-natural-secondary"
           v-if="product && product.title"
