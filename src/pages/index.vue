@@ -84,7 +84,7 @@ const {
   endTracker,
 } = useLazyScroll(sections, {
   initialCount: 2,
-  increment: 1,
+  increment: 2,
 });
 
 // After all async components are loaded

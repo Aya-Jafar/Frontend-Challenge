@@ -17,7 +17,7 @@
 
 export default function useLazyScroll<T>(
   fullData: Ref<T[]> | ComputedRef<T[]>,
-  { initialCount = 3, increment = 2, rootMargin = "100px" } = {}
+  { initialCount = 3, increment = 2, rootMargin = "10px" } = {}
 ) {
   const loadedCount = ref(initialCount);
   const endTracker = ref<HTMLElement | null>(null);
@@ -70,18 +70,20 @@ export default function useLazyScroll<T>(
     }
   };
 
-  // Reinitialize when fullData changes
-  onMounted(() => {
-    updateDisplayed();
-    nextTick(observe);
-  });
-
-  // Reinitialize when fullData changes
-  watch(fullData, () => {
+  /**
+   * Resets the lazy-loading state:
+   */
+  const resetAndObserve = () => {
     loadedCount.value = initialCount;
     updateDisplayed();
     nextTick(observe);
-  });
+  };
+
+  // Reinitialize when fullData changes
+  onMounted(resetAndObserve);
+
+  // Reinitialize when fullData changes
+  watch(fullData, resetAndObserve);
 
   // Re-observe if the tracker element changes
   watch(endTracker, () => nextTick(observe));
