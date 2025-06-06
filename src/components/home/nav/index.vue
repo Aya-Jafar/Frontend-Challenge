@@ -12,7 +12,7 @@ const { wishlist } = useWishListStore();
 
 <template>
   <div
-    class="flex flex-col md:flex-row justify-between items-center rounded-[24px] bg-[#DFDFE8]/50 border border-[#DFDFE8] py-3 px-5 md:py-5 md:px-7 m-2 md:m-5 gap-3 md:gap-0"
+    class="flex flex-col md:flex-row justify-between items-center rounded-[24px] bg-[#DFDFE880]/50 border border-[#E8E8E880] py-3 px-5 md:py-5 md:px-7 m-2 md:m-5 gap-3 md:gap-0"
   >
     <!-- Mobile top row: Logo + wishlist + cart -->
     <div class="flex md:hidden w-full justify-between items-center">
@@ -66,15 +66,15 @@ const { wishlist } = useWishListStore();
 
     <!-- Middle side: Search + Language (desktop) -->
     <div
-      class="w-full md:w-auto flex flex-col md:flex-row items-center gap-4 order-last md:order-none"
+      class="w-full md:w-auto flex flex-col md:flex-row items-center gap-10 order-last md:order-none"
     >
       <!-- Language Switcher (desktop only) -->
       <LanguageSwitcher />
       <!-- Search Bar -->
       <Search />
-    </div>
 
-    <!-- Logo -->
-    <Logo class="hidden md:block" />
+      <!-- Logo -->
+      <Logo class="hidden md:block" />
+    </div>
   </div>
 </template>
