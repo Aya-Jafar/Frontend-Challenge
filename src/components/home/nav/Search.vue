@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full md:w-[30rem]">
+  <div class="relative w-full md:w-[30rem] 2xl:w-[50rem]">
     <input
       type="text"
       placeholder="ابحث عن منتج او ماركة"
