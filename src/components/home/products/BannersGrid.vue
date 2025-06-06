@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { BannerGridPropertiesDTO, BannerDTO } from "../../../utils/types";
+import Loading from "~/components/common/Loading.vue";
 
-
-defineProps({
+const props = defineProps({
   data: {
     type: Array<BannerDTO>,
     default: () => [],
@@ -11,6 +11,17 @@ defineProps({
     type: Object as () => BannerGridPropertiesDTO,
     default: () => ({}),
   },
+});
+// Lazy load nested content
+const localBanners = ref<BannerDTO[]>(props.data);
+const {
+  displayedData: lazyBanners,
+  hasMore,
+  isLoading,
+  endTracker,
+} = useLazyScroll(localBanners, {
+  initialCount: 2,
+  increment: 2,
 });
 </script>
 
@@ -26,7 +37,7 @@ defineProps({
     ]"
   >
     <div
-      v-for="item in data"
+      v-for="item in lazyBanners"
       :key="item.id"
       :class="[
         'overflow-hidden rounded-lg  mb-5 mr-3',
@@ -39,6 +50,16 @@ defineProps({
         :alt="item.title"
         class="w-full h-full object-cover"
       />
+    </div>
+    <div
+      v-if="hasMore"
+      ref="endTracker"
+      class="h-1 w-full bg-transparent"
+    ></div>
+
+    <!-- Loading indicator -->
+    <div v-if="isLoading" class="flex justify-center min-h-[100px]">
+      <Loading />
     </div>
   </div>
 </template>

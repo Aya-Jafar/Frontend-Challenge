@@ -1,4 +1,4 @@
-# 🧩 Frontend Challenge
+# Frontend Challenge
 
 <br/>
 
@@ -6,7 +6,7 @@
 [![Nuxt 3](https://img.shields.io/badge/Nuxt%203-00DC82?logo=nuxt.js&logoColor=white&style=for-the-badge)](https://nuxt.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=white&style=for-the-badge)](https://tailwindcss.com/)
 
-![result](./result.png)
+![result](./mockup.png)
 
 # Code structure
 

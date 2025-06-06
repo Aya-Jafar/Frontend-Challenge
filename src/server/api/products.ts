@@ -9,10 +9,9 @@ import { ENDPOINTS } from "../../utils/endpoints";
 import { defineEventHandler } from "h3";
 
 /**
- * API endpoint handler to fetch data from a mock API containing the JSON file.
- * This simulates an API call with a delay.
+ * API endpoint handler to fetch data from the mock API
  *
- * @returns {Promise<Object>} The parsed JSON data from the file.
+ * @returns {Promise<ApiResponse[]>} The parsed JSON data from the file.
  */
 export default defineEventHandler(
   async (): Promise<ApiResponse[] | { error: string }> => {

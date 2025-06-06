@@ -41,7 +41,7 @@ const { wishlist } = useWishListStore();
     </div>
 
     <!-- Left side (desktop): cart + wishlist + account -->
-    <div class="hidden md:flex items-center gap-3">
+    <div class="hidden md:flex items-center gap-3 ml-20">
       <!-- Cart -->
       <button
         class="bg-[#FFE9E9] rounded-[12px] p-2 flex items-center justify-center gap-1"
@@ -66,7 +66,7 @@ const { wishlist } = useWishListStore();
 
     <!-- Middle side: Search + Language (desktop) -->
     <div
-      class="w-full md:w-auto flex flex-col md:flex-row items-center gap-10 order-last md:order-none"
+      class="w-full  md:w-auto flex flex-col md:flex-row items-center gap-10 order-last md:order-none"
     >
       <!-- Language Switcher (desktop only) -->
       <LanguageSwitcher />

@@ -73,7 +73,7 @@ const {
   displayedData: lazySections,
   hasMore,
   isLoading,
-  reachedEnd,
+  endTracker,
 } = useLazyScroll(sections, {
   initialCount: 2,
   increment: 1,
@@ -106,7 +106,7 @@ onMounted(() => {
       :is-empty="sections?.length === 0 && status !== 'pending' && isOnline"
     >
       <template #content>
-        <div class="w-full max-w-[1257px] mx-auto">
+        <div class="max-w-[1257px] mx-auto">
           <!-- Each section is eaither of type "grid" or "products" -->
           <template v-for="(section, index) in lazySections" :key="index">
             <Grid
@@ -124,7 +124,7 @@ onMounted(() => {
 
         <div
           v-if="hasMore"
-          ref="reachedEnd"
+          ref="endTracker"
           class="h-1 w-full bg-transparent"
         ></div>
 

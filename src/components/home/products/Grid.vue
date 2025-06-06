@@ -3,6 +3,7 @@ import ProductCard from "~/components/home/products/ProductCard.vue";
 import ProductModal from "./ProductModal.vue";
 import { ref, onMounted, watch } from "vue";
 import type { ProductDTO, ProductPropertiesDTO } from "../../../utils/types";
+import useLazyScroll from "~/composables/useLazyScroll";
 
 const props = defineProps({
   data: {
@@ -16,7 +17,7 @@ const props = defineProps({
 });
 
 // Data flow :
-// Card clicked -> toggleProductModal -> currentProductId updated -> ProductModal opened with currentProductId
+// Card clicked -> Open Product Modal -> `currentProduct` updated -> `ProductModal` opened with `currentProduct`
 
 const isModalOpen: Ref<boolean> = ref(false);
 const currentProduct: Ref<ProductDTO | null> = ref(null);
@@ -25,20 +26,46 @@ const openProductModal = (clickedProduct: ProductDTO) => {
   currentProduct.value = clickedProduct;
   isModalOpen.value = true;
 };
+
+// Lazy load nested content
+const localProducts: Ref<ProductDTO[]> = ref(props.data);
+const {
+  displayedData: lazyProducts,
+  hasMore,
+  isLoading,
+  endTracker,
+} = useLazyScroll(localProducts, {
+  initialCount: 20,
+  increment: 20,
+});
 </script>
 
 <template>
-  <div class="p-4 max-w-screen-xl mx-auto">
+  <div class="px-2 sm:px-4 max-w-screen-xl mx-auto mb-5 mt-10">
     <div
-      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"
+      class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-2 sm:gap-3 md:gap-4"
     >
       <ProductCard
-        v-for="product in data"
+        v-for="product in lazyProducts"
         :key="String(product.id)"
         :product-data="product"
         @open-modal="openProductModal"
         :properties="properties"
+        class="w-full"
       />
+      <div
+        v-if="hasMore"
+        ref="endTracker"
+        class="h-1 w-full bg-transparent col-span-full"
+      ></div>
+
+      <!-- Loading indicator -->
+      <div
+        v-if="isLoading"
+        class="flex justify-center min-h-[100px] col-span-full"
+      >
+        <Loading />
+      </div>
     </div>
     <ProductModal
       v-if="isModalOpen"

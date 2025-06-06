@@ -3,7 +3,7 @@ export default function useLazyScroll<T>(
   { initialCount = 3, increment = 2, rootMargin = "10px" } = {}
 ) {
   const loadedCount = ref(initialCount);
-  const reachedEnd = ref<HTMLElement | null>(null);
+  const endTracker = ref<HTMLElement | null>(null);
   const isLoading = ref(false);
   const displayedData = ref<T[]>([]);
 
@@ -30,7 +30,7 @@ export default function useLazyScroll<T>(
       {
         root: null,
         rootMargin,
-        threshold: 0.1,
+        threshold: 1.0,
       }
     );
   };
@@ -38,9 +38,9 @@ export default function useLazyScroll<T>(
 
   const observe = () => {
     observer?.disconnect();
-    if (reachedEnd.value) {
+    if (endTracker.value) {
       observer = createObserver();
-      observer.observe(reachedEnd.value);
+      observer.observe(endTracker.value);
     }
   };
 
@@ -58,7 +58,7 @@ export default function useLazyScroll<T>(
   });
 
   // Re-observe if the tracker element changes
-  watch(reachedEnd, () => nextTick(observe));
+  watch(endTracker, () => nextTick(observe));
 
   onUnmounted(() => observer?.disconnect());
 
@@ -66,6 +66,6 @@ export default function useLazyScroll<T>(
     displayedData,
     hasMore,
     isLoading,
-    reachedEnd,
+    endTracker,
   };
 }
