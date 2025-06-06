@@ -113,7 +113,7 @@ onMounted(() => {
       :is-empty="sections?.length === 0 && status !== 'pending' && isOnline"
     >
       <template #content>
-        <div class="max-w-[1257px] mx-auto">
+        <div class="px-4 lg:px-10 max-w-screen-2xl mx-auto mb-5 mt-10">
           <!-- Each section is eaither of type "grid" or "products" -->
           <template v-for="(section, index) in lazySections" :key="index">
             <Grid
