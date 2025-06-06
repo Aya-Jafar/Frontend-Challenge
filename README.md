@@ -116,7 +116,7 @@ const {
 1. Clone the repository
 
 ```shell
-git clone https://github.com/Aya-Jafar/frontend-challenge.git
+git clone https://github.com/Aya-Jafar/Frontend-Challenge.git
 ```
 
 2. Install dependencies
