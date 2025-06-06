@@ -91,7 +91,7 @@ const {
 });
 ```
 
-# Multiple states handling in one wrapper component example
+## Multiple states handling in one wrapper component example
 
 ```html
 <WrapperComponent

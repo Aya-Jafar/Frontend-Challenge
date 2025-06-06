@@ -19,6 +19,7 @@ const props = defineProps({
   spinnerSize: [String, Number],
   isOnline: Boolean,
 });
+import Loading from './Loading.vue';
 </script>
 
 <template>
@@ -30,7 +31,7 @@ const props = defineProps({
         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 p-4 max-w-screen-xl mx-auto"
       >
         <div
-          v-for="n in 12"
+          v-for="n in 20"
           :key="n"
           class="animate-pulse rounded-[8px] border border-gray-200 bg-white p-4 flex flex-col gap-4"
         >
@@ -41,10 +42,8 @@ const props = defineProps({
         </div>
       </div>
 
-      <div v-else class="flex justify-center items-center h-32">
-        <div
-          class="border-4 border-primary border-t-transparent rounded-full w-10 h-10 animate-spin"
-        ></div>
+      <div v-else class="flex justify-center items-center">
+        <Loading />
       </div>
     </slot>
 

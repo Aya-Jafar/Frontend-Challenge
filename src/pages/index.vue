@@ -90,8 +90,8 @@ onMounted(() => {
 <template>
   <!-- Default layout for nav and shared components  -->
   <DefaultLayout>
-    <!-- Wrapper component to handle different states of data (loading,error, empty) -->
 
+    <!-- Wrapper component to handle different states of data (loading,error, empty) -->
     <WrapperComponent
       :card-skeleton="true"
       :is-loading="
@@ -115,7 +115,7 @@ onMounted(() => {
               :properties="section.properties"
             />
             <BannersGrid
-              v-if="section.type === 'grid'"
+              v-else-if="section.type === 'grid'"
               :data="section.content"
               :properties="section.properties"
             />
