@@ -30,8 +30,6 @@ frontend-challenge/
 └── nuxt.config.ts    # Nuxt configuration
 └── ...Other root files for Nuxt js configuration...
 ```
-
-<br/>
 <br/>
 
 # Implementation Notes
