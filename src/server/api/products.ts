@@ -1,9 +1,4 @@
-import {
-  ContentWrapper,
-  Product,
-  RawSection,
-  ApiResponse,
-} from "./../../utils/types";
+import { ApiResponse } from "./../../utils/types";
 import { APIService } from "./../../services/ApiService";
 import { ENDPOINTS } from "../../utils/endpoints";
 import { defineEventHandler } from "h3";

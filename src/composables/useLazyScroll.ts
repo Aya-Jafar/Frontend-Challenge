@@ -1,6 +1,23 @@
+/**
+ * A composable for lazy loading data in chunks using IntersectionObserver.
+ *
+ * @template T - The type of the items in the data array.
+ * @param {Ref<T[]> | ComputedRef<T[]>} fullData - Reactive reference or computed ref of the full data array.
+ * @param {Object} [options] - Configuration options.
+ * @param {number} [options.initialCount=3] - Number of items to initially load.
+ * @param {number} [options.increment=2] - Number of items to load on each increment.
+ * @param {string} [options.rootMargin="100px"] - IntersectionObserver rootMargin setting.
+ * @returns {{
+ *   displayedData: Ref<T[]>,
+ *   hasMore: ComputedRef<boolean>,
+ *   isLoading: Ref<boolean>,
+ *   endTracker: Ref<HTMLElement | null>
+ * }} Reactive references for the lazy-loaded data, loading state, and intersection tracker element.
+ */
+
 export default function useLazyScroll<T>(
   fullData: Ref<T[]> | ComputedRef<T[]>,
-  { initialCount = 3, increment = 2, rootMargin = "10px" } = {}
+  { initialCount = 3, increment = 2, rootMargin = "100px" } = {}
 ) {
   const loadedCount = ref(initialCount);
   const endTracker = ref<HTMLElement | null>(null);
@@ -12,7 +29,9 @@ export default function useLazyScroll<T>(
   const updateDisplayed = () =>
     (displayedData.value = fullData.value.slice(0, loadedCount.value));
 
-  // Simulate async loading and update the count
+  /**
+   * Load more items by increasing loadedCount, simulating async delay.
+   */
   const loadMore = () => {
     if (isLoading.value || !hasMore.value) return;
 
@@ -24,6 +43,10 @@ export default function useLazyScroll<T>(
     }, 1000);
   };
 
+  /**
+   * Creates an IntersectionObserver to watch the endTracker element.
+   * Calls loadMore when it comes into view and there's more data.
+   */
   const createObserver = () => {
     return new IntersectionObserver(
       ([entry]) => entry.isIntersecting && hasMore.value && loadMore(),
@@ -36,6 +59,9 @@ export default function useLazyScroll<T>(
   };
   let observer: IntersectionObserver | null = null;
 
+  /**
+   * Observes the current endTracker element to trigger loading more.
+   */
   const observe = () => {
     observer?.disconnect();
     if (endTracker.value) {

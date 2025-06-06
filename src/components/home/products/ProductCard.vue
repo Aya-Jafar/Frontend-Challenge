@@ -1,8 +1,27 @@
 <script setup lang="ts">
+/**
+ * ProductCard component
+ * ---------------------
+ * Props:
+ * - productData: The product details object (ProductDTO).
+ * - properties: Display options and toggles (ProductPropertiesDTO).
+ *
+ * Emits:
+ * - "open-modal": Fired when user clicks the card to open product modal.
+ *
+ * Stores & Actions:
+ * - useCardStore: Manage cart state (add/remove).
+ * - useWishListStore: Manage wishlist state.
+ * - useToggleActions: Utility to create toggle handlers with snack messages.
+ *
+ * Handlers:
+ * - toggleCard: Toggle product in cart with snackbar feedback.
+ * - toggleWishlist: Toggle product in wishlist with snackbar feedback.
+ */
+
 import useWishListStore from "~/stores/products/wishlist";
 import useCardStore from "../../../stores/products/card";
 import type { ProductDTO, ProductPropertiesDTO } from "../../../utils/types";
-import { useSnackbarStore } from "~/stores/snackbar";
 import useToggleActions from "~/stores/products/actions";
 
 const props = defineProps<{

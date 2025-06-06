@@ -1,4 +1,12 @@
 <script setup lang="ts">
+/**
+ * Home Page Component
+ * Fetches and displays home page sections with lazy loading.
+ * Uses async components for layout and grids, handling products and banners.
+ * Shows loading, error, empty states via WrapperComponent.
+ * Tracks online status and supports infinite scroll.
+ **/
+
 import { defineAsyncComponent } from "vue";
 import WrapperComponent from "~/components/common/WrapperComponent.vue";
 import { SSR_ENDPOINTS } from "~/utils/SSR-endpoint";
@@ -90,7 +98,6 @@ onMounted(() => {
 <template>
   <!-- Default layout for nav and shared components  -->
   <DefaultLayout>
-
     <!-- Wrapper component to handle different states of data (loading,error, empty) -->
     <WrapperComponent
       :card-skeleton="true"

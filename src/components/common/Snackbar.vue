@@ -1,4 +1,9 @@
 <script setup lang="ts">
+/**
+ * Shows a temporary message at bottom-right.
+ * Types: success, error, warning, info.
+ */
+
 import { useSnackbarStore } from "~/stores/snackbar";
 
 const { snackbar, hideSnackbar } = useSnackbarStore();

@@ -1,5 +1,26 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref } from "vue";
+/**
+ * ProductModal component
+ * ---------------------
+ * Props:
+ * - product: The selected product object or null.
+ *
+ * States:
+ * - modalRef: Reference to the modal element for outside click detection.
+ * - isLoading: Boolean for loading state (simulated delay).
+ * - error: Holds error messages if any.
+ *
+ * Stores & Actions:
+ * - useCardStore: Manage cart state (add/remove/check).
+ * - useToggleActions: Creates toggle handlers with snackbar feedback.
+ *
+ * Features:
+ * - Close modal on outside click.
+ * - Add/remove product to/from cart with feedback.
+ * - Show product details like title, colors, image, price.
+ */
+
+import { onMounted , ref } from "vue";
 import type { ProductDTO } from "../../../utils/types";
 import BaseButton from "../../common/BaseButton.vue";
 import useCardStore from "../../../stores/products/card";

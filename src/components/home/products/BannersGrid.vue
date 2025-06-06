@@ -1,4 +1,17 @@
 <script setup lang="ts">
+/**
+ * BannerGrid Component
+ * --------------------
+ * Displays banners in a grid with lazy loading.
+ *
+ * Props:
+ * - data: BannerDTO[] — Array of banners to display.
+ * - properties: BannerGridPropertiesDTO — Grid layout & styling config.
+ *
+ * Features:
+ * - Lazy loads banners with configurable batch size.
+ */
+
 import type { BannerGridPropertiesDTO, BannerDTO } from "../../../utils/types";
 import Loading from "~/components/common/Loading.vue";
 

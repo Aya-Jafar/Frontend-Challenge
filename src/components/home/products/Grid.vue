@@ -1,7 +1,21 @@
 <script setup lang="ts">
+/**
+ * ProductGrid Component
+ * ---------------------
+ * Displays a grid of products with lazy loading and modal preview.
+ *
+ * Props:
+ * - data: ProductDTO[] — List of products to render.
+ * - properties: ProductPropertiesDTO — Layout & style configuration for cards.
+ *
+ * Behavior:
+ * - Opens ProductModal when a card is clicked.
+ * - Lazy loads more products as you scroll.
+ */
+
 import ProductCard from "~/components/home/products/ProductCard.vue";
 import ProductModal from "./ProductModal.vue";
-import { ref, onMounted, watch } from "vue";
+import { ref } from "vue";
 import type { ProductDTO, ProductPropertiesDTO } from "../../../utils/types";
 import useLazyScroll from "~/composables/useLazyScroll";
 
@@ -36,12 +50,13 @@ const {
   endTracker,
 } = useLazyScroll(localProducts, {
   initialCount: 20,
-  increment: 20,
+  increment: 10,
 });
 </script>
 
 <template>
   <div class="px-2 sm:px-4 max-w-screen-xl mx-auto mb-5 mt-10">
+    <!-- Products grid -->
     <div
       class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-2 sm:gap-3 md:gap-4"
     >
@@ -53,6 +68,7 @@ const {
         :properties="properties"
         class="w-full"
       />
+      <!-- Lazy loading tracker -->
       <div
         v-if="hasMore"
         ref="endTracker"

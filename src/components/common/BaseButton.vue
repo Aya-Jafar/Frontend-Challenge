@@ -1,5 +1,15 @@
 <script setup lang="ts">
-const emit = defineEmits(["click", "class"]);
+/**
+ * A reusable button component supporting different variants, colors, and custom classes.
+ * Props:
+ *  - variant: "solid" | "outline" (default: "solid")
+ *  - color: "primary" | "secondary" | "danger" | "success" (default: "primary")
+ *  - customClass: string (overrides default classes)
+ * Emits:
+ *  - "click": Triggered when the button is clicked.
+ **/
+
+const emit = defineEmits(["click"]);
 
 const props = defineProps<{
   variant?: "solid" | "outline";
@@ -35,9 +45,8 @@ const buttonClass = computed(() => {
   }`;
 });
 
-const handleClick = (e:MouseEvent) => {
+const handleClick = (e: MouseEvent) => {
   emit("click");
-  emit("class", buttonClass.value);
   e.stopPropagation();
 };
 </script>

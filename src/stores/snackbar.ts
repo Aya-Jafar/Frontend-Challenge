@@ -6,7 +6,10 @@ interface SnackbarMessage {
   timeout?: number;
   isVisible?: boolean;
 }
-
+/**
+ * Store for managing snackbar notifications.
+ * Provides reactive state and methods to show and hide snackbars with auto-dismiss.
+ */
 export const useSnackbarStore = () => {
   // State for the current snackbar message
   const snackbar = useState<SnackbarMessage | null>("snackbar", () => null);
