@@ -32,13 +32,13 @@ export default defineNuxtConfig({
 
     head: {
       // Usefull for SEO
-      title: "Frontend challenge",
+      title: "Frontend challenge", // This will create the <title> tag
+
       meta: [
         {
           name: "description",
-          content: "Frontend challenge",
+          content: "A fun frontend challenge to sharpen your skills.",
         },
-        { name: "Frontend challenge" },
       ],
 
       link: [
@@ -49,15 +49,8 @@ export default defineNuxtConfig({
         },
         {
           rel: "preconnect",
-          href: "https://db.onlinewebfonts.com",
-          crossorigin: "anonymous",
-        },
-        {
-          rel: "preload",
-          as: "font",
-          type: "font/woff2",
-          href: "https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.woff2",
-          crossorigin: "anonymous",
+          href: "https://d3uk5qlby53t3w.cloudfront.net",
+          crossorigin: "anonymous", 
         },
         {
           rel: "preconnect",
@@ -95,7 +88,11 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    compressPublicAssets: true,
+    compressPublicAssets: {
+      gzip: true,
+      brotli: true,
+    },
+
     serveStatic: true, // Explicitly enable static file serving
     prerender: {
       crawlLinks: true,
