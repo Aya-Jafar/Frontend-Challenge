@@ -93,6 +93,14 @@ onMounted(() => {
     isComponentsLoading.value = false;
   });
 });
+const isLoadingState = computed(() => {
+  return (
+    status.value === "pending" ||
+    status.value === "idle" ||
+    isComponentsLoading.value ||
+    (isLoading.value && lazySections.value.length === 0)
+  );
+});
 </script>
 
 <template>
@@ -101,12 +109,8 @@ onMounted(() => {
     <!-- Wrapper component to handle different states of data (loading,error, empty) -->
     <WrapperComponent
       :card-skeleton="true"
-      :is-loading="
-        status === 'pending' || status === 'idle' || isComponentsLoading
-      "
-      :is-pending="
-        status === 'pending' || status === 'idle' || isComponentsLoading
-      "
+      :is-loading="isLoadingState"
+      :is-pending="isLoadingState"
       :is-success="status === 'success' && !isComponentsLoading"
       :error="error ?? undefined"
       :is-online="isOnline ?? true"
