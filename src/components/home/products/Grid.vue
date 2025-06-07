@@ -56,7 +56,7 @@ const {
 </script>
 
 <template>
-  <div class="px-2 sm:px-4 max-w-screen-2xl mx-auto mb-5 mt-10 min-h-[500px]">
+  <div class="px-2 sm:px-4 max-w-screen-2xl mx-auto mb-5 mt-10">
     <!-- Products grid -->
     <div
       class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-2 sm:gap-3 md:gap-4"

@@ -80,7 +80,7 @@ const sections = computed((): Section[] | [] => {
 const {
   displayedData: lazySections,
   hasMore,
-  isLoading,
+  isLoading: endLoading,
   endTracker,
 } = useLazyScroll(sections, {
   initialCount: 2,
@@ -93,23 +93,14 @@ onMounted(() => {
     isComponentsLoading.value = false;
   });
 });
+
+// Skeleton show conditions
 const isLoadingState = computed(() => {
   return (
     status.value === "pending" ||
     status.value === "idle" ||
-    isComponentsLoading.value ||
-    (isLoading.value && lazySections.value.length === 0)
+    isComponentsLoading.value
   );
-});
-
-// Track if initial load is complete
-const initialLoadComplete = ref(false);
-
-// Watch for when we transition from loading to loaded
-watch(isLoadingState, (newVal) => {
-  if (!newVal) {
-    initialLoadComplete.value = true;
-  }
 });
 </script>
 
@@ -127,19 +118,26 @@ watch(isLoadingState, (newVal) => {
       :is-empty="sections?.length === 0 && status !== 'pending' && isOnline"
     >
       <template #content>
-        <div class="px-4 lg:px-10 max-w-screen-2xl mx-auto mb-5 mt-10" v-if="initialLoadComplete">
+        <div class="px-4 lg:px-10 max-w-screen-2xl mx-auto mb-5 mt-10">
           <!-- Each section is eaither of type "grid" or "products" -->
           <template v-for="(section, index) in lazySections" :key="index">
-            <Grid
-              v-if="section.type === 'products'"
-              :data="section.content"
-              :properties="section.properties"
-            />
-            <BannersGrid
-              v-else-if="section.type === 'grid'"
-              :data="section.content"
-              :properties="section.properties"
-            />
+            <div
+              :class="{
+                'min-h-[300px]': section.type === 'grid',
+                'min-h-[600px]': section.type === 'products',
+              }"
+            >
+              <Grid
+                v-if="section.type === 'products'"
+                :data="section.content"
+                :properties="section.properties"
+              />
+              <BannersGrid
+                v-else-if="section.type === 'grid'"
+                :data="section.content"
+                :properties="section.properties"
+              />
+            </div>
           </template>
         </div>
 
@@ -150,7 +148,7 @@ watch(isLoadingState, (newVal) => {
         ></div>
 
         <!-- Loading indicator -->
-        <div v-if="isLoading" class="flex justify-center min-h-[100px]">
+        <div v-if="endLoading" class="flex justify-center min-h-[100px]">
           <Loading />
         </div>
 
