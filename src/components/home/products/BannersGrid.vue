@@ -22,7 +22,21 @@ const props = defineProps({
   },
   properties: {
     type: Object as () => BannerGridPropertiesDTO,
-    default: () => ({}),
+    default: () => ({
+      cols: "1",
+      rows: "1",
+      ratio: "1",
+      direction: "vertical",
+      hasShadow: false,
+      lineSpacing: "0",
+      interitemSpacing: "0",
+      leftRightMargins: "0",
+      topBottomMargins: "0",
+      outerLeftRightMargins: "16",
+      outerTopBottomMargins: "8",
+      innerLeftRightSpacing: "16",
+      innerTopBottomSpacing: "8",
+    }),
   },
 });
 // Lazy load nested content
@@ -36,17 +50,23 @@ const {
   initialCount: 2,
   increment: 2,
 });
+const aspectRatioStyle = computed(() => {
+  const ratio = parseFloat(props.properties.ratio) || 1;
+  return {
+    aspectRatio: ratio.toString(),
+  };
+});
 </script>
 
 <template>
   <div
     :class="[
       'grid',
-      `grid-cols-${properties.cols}`,
+      `grid-cols-${Math.min(12, Math.max(1, parseInt(properties.cols) || 1))}`,
       `grid-rows-${properties.rows}`,
-      `gap-x-[${properties.interitemSpacing}px]`,
-      `gap-y-[${properties.lineSpacing}px]`,
-      `p-[${properties.topBottomMargins}px_${properties.leftRightMargins}px]`,
+      `gap-x-[${properties.innerLeftRightSpacing}px]`,
+      `gap-y-[${properties.innerTopBottomSpacing}px]`,
+      `p-[${properties.outerTopBottomMargins}px_${properties.outerLeftRightMargins}px]`,
     ]"
   >
     <div
@@ -55,14 +75,14 @@ const {
       :class="[
         'overflow-hidden rounded-lg  mb-5 mr-3',
         properties.hasShadow ? 'shadow-md' : '',
-        properties.ratio === '2' ? 'aspect-[2/1]' : '',
       ]"
+      :style="aspectRatioStyle"
     >
       <img
         :src="item.imageURL"
         :alt="item.title"
         class="w-full h-full object-cover"
-        priority
+        loading="lazy"
       />
     </div>
     <div

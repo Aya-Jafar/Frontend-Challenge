@@ -1,6 +1,7 @@
 <script setup lang="ts">
 /**
  * Home Page Component
+ * -------------------
  * Fetches and displays home page sections with lazy loading.
  * Uses async components for layout and grids, handling products and banners.
  * Shows loading, error, empty states via WrapperComponent.

@@ -5,7 +5,6 @@ import path from "path";
 export default defineNuxtConfig({
   compatibilityDate: "2025-05-15",
   devtools: { enabled: false },
-  modules: ["@nuxt/image"],
 
   srcDir: "src/",
 
@@ -104,15 +103,5 @@ export default defineNuxtConfig({
         baseURL: "/",
       },
     ],
-  },
-
-  image: {
-    provider: "ipx", // built-in image processor
-    presets: {
-      default: {
-        format: "webp",
-        quality: 80,
-      },
-    },
   },
 });

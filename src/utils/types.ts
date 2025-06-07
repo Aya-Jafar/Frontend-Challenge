@@ -143,6 +143,11 @@ export type BannerGridProperties = {
   interitem_spacing: string;
   left_right_margins: string;
   top_bottom_margins: string;
+
+  outer_left_right_margins: string;
+  outer_top_bottom_margins: string;
+  inner_top_bottom_spacing: string;
+  inner_left_right_spacing: string;
 };
 
 export interface BannerGridPropertiesDTO {
@@ -155,4 +160,8 @@ export interface BannerGridPropertiesDTO {
   interitemSpacing: string;
   leftRightMargins: string;
   topBottomMargins: string;
+  outerLeftRightMargins: string;
+  outerTopBottomMargins: string;
+  innerTopBottomSpacing: string;
+  innerLeftRightSpacing: string;
 }
