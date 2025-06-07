@@ -1,4 +1,5 @@
 # Frontend Challenge
+
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white&style=for-the-badge)](https://www.typescriptlang.org/)
 [![Nuxt 3](https://img.shields.io/badge/Nuxt%203-00DC82?logo=nuxt.js&logoColor=white&style=for-the-badge)](https://nuxt.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=white&style=for-the-badge)](https://tailwindcss.com/)
@@ -30,6 +31,7 @@ frontend-challenge/
 └── nuxt.config.ts    # Nuxt configuration
 └── ...Other root files for Nuxt js configuration...
 ```
+
 <br/>
 
 # Implementation Notes
@@ -78,7 +80,7 @@ To achieve this, I created a composable function `useLazyScroll` that simulate t
 const {
   displayedData: lazyProducts,
   hasMore,
-  isLoading, 
+  isLoading,
   endTracker, // ref for the end of the list to track scroll
 } = useLazyScroll(data, {
   initialCount: 20, // initial number of items to display
@@ -102,9 +104,14 @@ const {
 </WrapperComponent>
 ```
 
-# Metric
+# Metric & Lighthouse
 
-![alt](./metric.png)
+<div style="display: flex; gap: 16px;">
+  <img src="./metric.png" alt="Metric" width="48%" />
+  <img src="./lighthouse.jpg" alt="Lighthouse" width="48%" />
+</div>
+
+<br/>
 
 # Development Setup
 
