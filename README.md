@@ -106,8 +106,8 @@ const {
 
 # Metric & Lighthouse
 <div style="display: flex; gap: 12px; height:400px">
-  <img src="./metric.png" alt="Metric" width="50%" />
-  <img src="./lighthouse.jpg" alt="Lighthouse" width="50%" />
+  <img src="./metric.png" alt="Metric" width="48%" />
+  <img src="./lighthouse.jpg" alt="Lighthouse" width="48%" />
 </div>
 
 <br/>
