@@ -31,8 +31,16 @@ export default defineNuxtConfig({
     keepalive: true,
 
     head: {
+      // Usefull for SEO
       title: "Frontend challenge",
-      meta: [{ name: "Frontend challenge" }],
+      meta: [
+        {
+          name: "description",
+          content: "Frontend challenge",
+        },
+        { name: "Frontend challenge" },
+      ],
+
       link: [
         {
           rel: "preconnect",
