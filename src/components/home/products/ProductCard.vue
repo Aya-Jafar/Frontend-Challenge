@@ -66,15 +66,17 @@ const toggleWishlist = createToggleHandler({
       class="absolute cursor-pointer top-3 right-3 bg-white shadow-md rounded-[8px] p-2 flex items-center justify-center"
     >
       <img
-        src="~/assets/images/heart-filled.svg"
+        src="/images/heart-filled.svg"
         class="w-6 h-6"
         alt="heart"
+        priority
         v-if="isInWishlist(productData.id)"
       />
       <img
-        src="~/assets/images/empty-heart.svg"
+        src="/images/empty-heart.svg"
         class="w-6 h-6"
         alt="heart"
+        priority
         v-else
       />
     </button>
@@ -85,7 +87,12 @@ const toggleWishlist = createToggleHandler({
       @click.stop="toggleCard(props.productData!)"
       class="absolute top-32 right-3 bg-white rounded-[8px] p-2 flex items-center justify-center shadow-sm"
     >
-      <img src="~/assets/images/shop-cart.svg" class="w-6 h-6" alt="cart" />
+      <img
+        src="/images/shop-cart.svg"
+        class="w-6 h-6"
+        alt="cart"
+        priority
+      />
     </button>
 
     <!--  Rating Button -->
@@ -94,11 +101,16 @@ const toggleWishlist = createToggleHandler({
       class="absolute top-35 left-3 bg-white rounded-[8px] p-1 flex items-center justify-center shadow-sm"
     >
       <span class="text-natural-secondary font-[600]"
-        ><span class="!font-bold">
-          {{ productData.rating }} </span
-        >[{{ productData.ratingCount }}]</span
+        ><span class="!font-bold"> {{ productData.rating }} </span>[{{
+          productData.ratingCount
+        }}]</span
       >
-      <img src="~/assets/images/star.svg" class="w-4 h-4" alt="star" />
+      <img
+        src="/images/star.svg"
+        class="w-4 h-4"
+        alt="star"
+        priority
+      />
     </button>
 
     <!--  Discount badge -->
@@ -126,6 +138,7 @@ const toggleWishlist = createToggleHandler({
         :src="productData.imageURL"
         alt="product"
         class="object-contain max-h-full p-4"
+        priority
       />
     </div>
 
@@ -205,6 +218,7 @@ const toggleWishlist = createToggleHandler({
               :src="productData.bottomTagIcon"
               class="w-5 h-5"
               alt="bag"
+              priority
             />
           </div>
         </div>
@@ -217,7 +231,12 @@ const toggleWishlist = createToggleHandler({
           class="flex items-center gap-1 bg-black text-white text-sm rounded-full px-2 py-0.5 font-semibold"
         >
           <span>{{ productData.merchant }}</span>
-          <img src="~/assets/images/paper-bag.svg" class="w-5 h-5" alt="bag" />
+          <img
+            src="/images/paper-bag.svg"
+            priority
+            class="w-5 h-5"
+            alt="bag"
+          />
         </div>
       </div>
     </div>

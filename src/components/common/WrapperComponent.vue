@@ -62,7 +62,7 @@ import Loading from './Loading.vue';
         class="flex flex-col justify-center items-center w-full h-full text-center"
       >
         <img
-          src="~/assets/images/network-error-state-light.svg"
+          src="/images/network-error-state-light.svg"
           class="w-[22rem]"
           alt="Network Error"
         />
@@ -79,7 +79,7 @@ import Loading from './Loading.vue';
         class="flex flex-col justify-center items-center w-full h-full text-center"
       >
         <img
-          src="~/assets/images/server-error-state-light.svg"
+          src="/images/server-error-state-light.svg"
           class="w-[22rem]"
           alt="Server Error"
         />
@@ -96,7 +96,7 @@ import Loading from './Loading.vue';
         class="flex flex-col justify-center items-center w-full h-full text-center"
       >
         <img
-          src="~/assets/images/empty-state-light.svg"
+          src="/images/empty-state-light.svg"
           class="w-[22rem]"
           alt="No Data"
         />

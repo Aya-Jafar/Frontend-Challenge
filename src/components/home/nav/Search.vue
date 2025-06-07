@@ -7,8 +7,9 @@
     />
     <img
       class="absolute top-2.5 end-3 w-4 h-4"
-      src="/assets/images/search.png"
+      src="/images/search.png"
       alt="search"
+      fetchpriority="high"
     />
   </div>
 </template>

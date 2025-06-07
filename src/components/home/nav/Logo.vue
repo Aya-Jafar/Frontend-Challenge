@@ -1,6 +1,11 @@
 <template>
   <header class="flex items-start gap-[0.3rem]">
-    <img src="~/assets/images/logo.png" alt="" class="logo" />
+    <img
+      src="~/assets/images/logo.png"
+      alt="logo"
+      class="logo"
+      fetchpriority="high"
+    />
   </header>
 </template>
 

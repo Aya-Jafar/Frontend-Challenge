@@ -6,8 +6,6 @@
  * Shows loading, error, empty states via WrapperComponent.
  * Tracks online status and supports infinite scroll.
  **/
-
-import { defineAsyncComponent } from "vue";
 import WrapperComponent from "~/components/common/WrapperComponent.vue";
 import { SSR_ENDPOINTS } from "~/utils/SSR-endpoint";
 import { computed } from "vue";
@@ -21,19 +19,12 @@ import {
   type RawSection,
   type BannerGridProperties,
 } from "~/utils/types";
+import DefaultLayout from "~/layout/DefaultLayout.vue";
+import Grid from "~/components/home/products/Grid.vue";
+import BannersGrid from "~/components/home/products/BannersGrid.vue";
 
-/**
- * Lazy loaded components
- **/
-const DefaultLayout = defineAsyncComponent(
-  () => import("~/layout/DefaultLayout.vue")
-);
-const Grid = defineAsyncComponent(
-  () => import("~/components/home/products/Grid.vue")
-);
-const BannersGrid = defineAsyncComponent(
-  () => import("~/components/home/products/BannersGrid.vue")
-);
+
+// Fetch API data 
 const { data, error, status } = await useFetch<RawSection[]>(
   SSR_ENDPOINTS.HOME
 );
@@ -41,7 +32,6 @@ const { data, error, status } = await useFetch<RawSection[]>(
 const store = useProdcutsStore();
 const bannerStore = useBannersStore();
 const { isOnline } = useOnline();
-const isComponentsLoading = ref(true);
 
 /**
  * Checks if the section type is a product section and prepares each section data seperatly.
@@ -86,13 +76,6 @@ const {
   initialCount: 2,
   increment: 2,
 });
-
-// After all async components are loaded
-onMounted(() => {
-  Promise.all([DefaultLayout, Grid, BannersGrid]).then(() => {
-    isComponentsLoading.value = false;
-  });
-});
 </script>
 
 <template>
@@ -101,13 +84,9 @@ onMounted(() => {
     <!-- Wrapper component to handle different states of data (loading,error, empty) -->
     <WrapperComponent
       :card-skeleton="true"
-      :is-loading="
-        status === 'pending' || status === 'idle' || isComponentsLoading
-      "
-      :is-pending="
-        status === 'pending' || status === 'idle' || isComponentsLoading
-      "
-      :is-success="status === 'success' && !isComponentsLoading"
+      :is-loading="status === 'pending' || status === 'idle'"
+      :is-pending="status === 'pending' || status === 'idle'"
+      :is-success="status === 'success'"
       :error="error ?? undefined"
       :is-online="isOnline ?? true"
       :is-empty="sections?.length === 0 && status !== 'pending' && isOnline"

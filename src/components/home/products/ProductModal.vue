@@ -20,7 +20,7 @@
  * - Show product details like title, colors, image, price.
  */
 
-import { onMounted , ref } from "vue";
+import { onMounted, ref } from "vue";
 import type { ProductDTO } from "../../../utils/types";
 import BaseButton from "../../common/BaseButton.vue";
 import useCardStore from "../../../stores/products/card";
@@ -80,10 +80,11 @@ onMounted(() => {
       <!--  Title + Close -->
       <div class="flex justify-between items-end" v-else>
         <img
-          src="~/assets/images/close.svg"
+          src="/images/close.svg"
           alt="close"
           class="w-10 h-10"
           @click="$emit('close')"
+          priority
         />
         <h2
           class="text-lg font-bold text-right flex-1 text-natural-secondary"
@@ -115,6 +116,7 @@ onMounted(() => {
             :src="product.imageURL"
             alt="product"
             class="object-contain max-h-full p-4"
+            priority
           />
         </div>
       </div>

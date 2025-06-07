@@ -62,6 +62,7 @@ const {
         :src="item.imageURL"
         :alt="item.title"
         class="w-full h-full object-cover"
+        priority
       />
     </div>
     <div
