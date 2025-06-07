@@ -115,7 +115,14 @@ onMounted(() => {
       <template #content>
         <div class="px-4 lg:px-10 max-w-screen-2xl mx-auto mb-5 mt-10">
           <!-- Each section is eaither of type "grid" or "products" -->
-          <template v-for="(section, index) in lazySections" :key="index">
+          <template
+            v-for="(section, index) in lazySections"
+            :key="index"
+            :class="{
+              'min-h-[300px]': status === 'pending' || isComponentsLoading,
+              'mb-8': section.type === 'products',
+            }"
+          >
             <Grid
               v-if="section.type === 'products'"
               :data="section.content"
@@ -130,15 +137,17 @@ onMounted(() => {
         </div>
 
         <div
-          v-if="hasMore"
+          v-if="isLoading && lazySections.length > 0"
+          class="flex justify-center min-h-[100px]"
+        >
+          <Loading />
+        </div>
+
+        <div
+          v-if="hasMore && lazySections.length > 0"
           ref="endTracker"
           class="h-1 w-full bg-transparent"
         ></div>
-
-        <!-- Loading indicator -->
-        <div v-if="isLoading" class="flex justify-center min-h-[100px]">
-          <Loading />
-        </div>
 
         <!-- No more content indicator -->
         <div
