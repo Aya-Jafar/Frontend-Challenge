@@ -1,11 +1,6 @@
 <template>
   <header class="flex items-start gap-[0.3rem]">
-    <img
-      src="~/assets/images/logo.png"
-      alt="logo"
-      class="logo"
-      fetchpriority="high"
-    />
+    <NuxtImg src="/images/logo.png" width="100"   height="auto"   loading="eager"/>
   </header>
 </template>
 
