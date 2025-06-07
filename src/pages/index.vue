@@ -101,6 +101,16 @@ const isLoadingState = computed(() => {
     (isLoading.value && lazySections.value.length === 0)
   );
 });
+
+// Track if initial load is complete
+const initialLoadComplete = ref(false);
+
+// Watch for when we transition from loading to loaded
+watch(isLoadingState, (newVal) => {
+  if (!newVal) {
+    initialLoadComplete.value = true;
+  }
+});
 </script>
 
 <template>
@@ -117,7 +127,7 @@ const isLoadingState = computed(() => {
       :is-empty="sections?.length === 0 && status !== 'pending' && isOnline"
     >
       <template #content>
-        <div class="px-4 lg:px-10 max-w-screen-2xl mx-auto mb-5 mt-10">
+        <div class="px-4 lg:px-10 max-w-screen-2xl mx-auto mb-5 mt-10" v-if="initialLoadComplete">
           <!-- Each section is eaither of type "grid" or "products" -->
           <template v-for="(section, index) in lazySections" :key="index">
             <Grid
