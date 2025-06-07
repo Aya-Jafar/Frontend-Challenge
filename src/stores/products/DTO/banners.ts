@@ -22,6 +22,7 @@ export const BannerDTOBuilder = (banners: Banner[]): BannerDTO[] => {
   }));
 };
 
+
 /**
  * Converts raw BannerGridProperties to a DTO with camelCase keys and defaults.
  *
