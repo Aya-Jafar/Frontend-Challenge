@@ -71,7 +71,7 @@ export const ProductsPropertiesDTOBuilder = (
   return {
     imageRatio: properties?.image_ratio || "1",
     titleLines: properties?.title_lines || "",
-    hasCartBtn: properties?.has_cart_btn ?? false,
+    hasCartBtn: properties?.has_cart_btn ?? true,
     hasFavouriteBtn: properties?.has_favourite_btn ?? false,
     shouldShowTitle: properties?.should_show_title ?? false,
     shouldShowRating: properties?.should_show_rating ?? false,

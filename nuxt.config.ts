@@ -43,13 +43,27 @@ export default defineNuxtConfig({
       link: [
         {
           rel: "preconnect",
-          href: "/fonts/Teshrin AR+LT Regular.woff2",
+          href: "https://db.onlinewebfonts.com",
+          crossorigin: "anonymous",
+        },
+        {
+          rel: "preload",
           as: "font",
+          href: "https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.woff2",
+          type: "font/woff2",
+          crossorigin: "anonymous",
+        },
+        {
+          rel: "preload",
+          as: "font",
+          href: "https://db.onlinewebfonts.com/t/56364258e3196484d875eec94e6edb93.woff2",
+          type: "font/woff2",
+          crossorigin: "anonymous",
         },
         {
           rel: "preconnect",
           href: "https://d3uk5qlby53t3w.cloudfront.net",
-          crossorigin: "anonymous", 
+          crossorigin: "anonymous",
         },
         {
           rel: "preconnect",

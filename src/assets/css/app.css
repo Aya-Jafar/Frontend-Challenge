@@ -16,7 +16,6 @@
   @apply bg-[#D22525] text-white;
 }
 
-
 .bg-natural-default {
   @apply bg-[#1C1C1C];
 }
@@ -45,27 +44,25 @@
 }
 .text-base-tertiary {
   @apply text-[#A5A5A5];
-
 }
-.product-border-color{
+.product-border-color {
   @apply border-[#F69393];
 }
 
 @font-face {
-  font-family: "Teshrin AR+LT Regular";
-  src: url("https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.eot");
-  src: url("https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.eot?#iefix")
-      format("embedded-opentype"),
-    url("https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.woff2")
-      format("woff2"),
-    url("https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.woff")
-      format("woff"),
-    url("https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.ttf")
-      format("truetype"),
-    url("https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.svg#Teshrin AR+LT Regular")
-      format("svg");
+  font-family: "Teshrin AR+LT";
+  src: url("https://db.onlinewebfonts.com/t/510d36c34e39deee4abbd9264a159c79.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Teshrin AR+LT";
+  src: url("https://db.onlinewebfonts.com/t/56364258e3196484d875eec94e6edb93.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
 }
 
 body {
-  font-family: "Teshrin AR+LT Regular";
+  font-family: "Teshrin AR+LT", sans-serif;
 }

@@ -85,7 +85,7 @@ const toggleWishlist = createToggleHandler({
     <button
       v-if="properties.hasCartBtn"
       @click.stop="toggleCard(props.productData!)"
-      class="absolute top-32 right-3 bg-white rounded-[8px] p-2 flex items-center justify-center shadow-sm"
+      class="absolute top-32 right-3 bg-white rounded-[8px] p-2 flex items-center justify-center shadow-sm cursor-pointer"
     >
       <img src="/images/shop-cart.svg" class="w-6 h-6" alt="cart" priority />
     </button>
@@ -136,15 +136,21 @@ const toggleWishlist = createToggleHandler({
     <h2
       v-if="properties.shouldShowTitle"
       :class="[
-        'text-[15px] leading-snug font-medium text-gray-800 mb-1 text-right',
+        'text-[15px] leading-snug !font-[600] text-natural-secondary mb-1 text-right',
         `line-clamp-${properties.titleLines || 2}`,
       ]"
     >
-      {{ productData.title }}
+      <span>
+        <!-- First word is bold -->
+        <span class="font-bold">
+          {{ productData.title.split(" ")[0] }}
+        </span>
+        {{ " " + productData.title.split(" ").slice(1).join(" ") }}
+      </span>
     </h2>
 
     <!--  Price & currency -->
-    <div class="text-right text-[#141414] !font-bold text-lg mb-1">
+    <div class="text-right text-base-default !font-bold text-lg mb-1">
       {{ productData.currency }} {{ productData.price }}
     </div>
 
