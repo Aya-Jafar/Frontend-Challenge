@@ -188,7 +188,7 @@ const toggleWishlist = createToggleHandler({
         <div class="flex items-end flex-col justify-between mt-3">
           <div class="flex items-center gap-1 text-sm text-gray-600 mb-2">
             <span
-              class="font-bold text-natural-secondary line-through text-base-tertiary"
+              class="font-[400] text-natural-secondary line-through text-base-tertiary"
               v-if="productData.priceBeforeDiscount"
               >{{ productData.priceBeforeDiscount }}</span
             >
