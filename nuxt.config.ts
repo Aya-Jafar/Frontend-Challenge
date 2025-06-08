@@ -41,6 +41,9 @@ export default defineNuxtConfig({
       ],
 
       link: [
+        // Url image
+        { rel: "icon", type: "image/png", href: "/images/url-logo.png" },
+
         {
           rel: "preconnect",
           href: "https://db.onlinewebfonts.com",
