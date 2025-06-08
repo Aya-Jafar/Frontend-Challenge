@@ -87,12 +87,7 @@ const toggleWishlist = createToggleHandler({
       @click.stop="toggleCard(props.productData!)"
       class="absolute top-32 right-3 bg-white rounded-[8px] p-2 flex items-center justify-center shadow-sm"
     >
-      <img
-        src="/images/shop-cart.svg"
-        class="w-6 h-6"
-        alt="cart"
-        priority
-      />
+      <img src="/images/shop-cart.svg" class="w-6 h-6" alt="cart" priority />
     </button>
 
     <!--  Rating Button -->
@@ -105,12 +100,7 @@ const toggleWishlist = createToggleHandler({
           productData.ratingCount
         }}]</span
       >
-      <img
-        src="/images/star.svg"
-        class="w-4 h-4"
-        alt="star"
-        priority
-      />
+      <img src="/images/star.svg" class="w-4 h-4" alt="star" priority />
     </button>
 
     <!--  Discount badge -->
@@ -158,7 +148,10 @@ const toggleWishlist = createToggleHandler({
       {{ productData.currency }} {{ productData.price }}
     </div>
 
-    <div class="flex justify-between items-end">
+    <div
+      class="flex justify-between items-end"
+      v-if="properties.shouldShowVariations"
+    >
       <!-- Colors circles stack -->
       <div class="flex justify-between items-center">
         <div
@@ -231,12 +224,7 @@ const toggleWishlist = createToggleHandler({
           class="flex items-center gap-1 bg-black text-white text-sm rounded-full px-2 py-0.5 font-semibold"
         >
           <span>{{ productData.merchant }}</span>
-          <img
-            src="/images/paper-bag.svg"
-            priority
-            class="w-5 h-5"
-            alt="bag"
-          />
+          <img src="/images/paper-bag.svg" priority class="w-5 h-5" alt="bag" />
         </div>
       </div>
     </div>

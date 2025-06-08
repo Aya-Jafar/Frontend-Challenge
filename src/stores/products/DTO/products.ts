@@ -69,7 +69,7 @@ export const ProductsPropertiesDTOBuilder = (
   properties: ProductProperties
 ): ProductPropertiesDTO => {
   return {
-    imageRatio: properties?.image_ratio || "",
+    imageRatio: properties?.image_ratio || "1",
     titleLines: properties?.title_lines || "",
     hasCartBtn: properties?.has_cart_btn ?? false,
     hasFavouriteBtn: properties?.has_favourite_btn ?? false,

@@ -30,7 +30,7 @@ const DefaultLayout = defineAsyncComponent(
   () => import("~/layout/DefaultLayout.vue")
 );
 const Grid = defineAsyncComponent(
-  () => import("~/components/home/products/Grid.vue")
+  () => import("~/components/home/products/ProductsGrid.vue")
 );
 const BannersGrid = defineAsyncComponent(
   () => import("~/components/home/products/BannersGrid.vue")

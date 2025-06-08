@@ -64,9 +64,11 @@ const aspectRatioStyle = computed(() => {
       'grid',
       `grid-cols-${Math.min(12, Math.max(1, parseInt(properties.cols) || 1))}`,
       `grid-rows-${properties.rows}`,
-      `gap-x-[${properties.innerLeftRightSpacing}px]`,
+      `gap-x-[${properties.interitemSpacing}px]`,
       `gap-y-[${properties.innerTopBottomSpacing}px]`,
-      `p-[${properties.outerTopBottomMargins}px_${properties.outerLeftRightMargins}px]`,
+      `mx-${properties.outerLeftRightMargins}px`,
+      `my-${properties.outerTopBottomMargins}px`,
+      `px-${properties.innerLeftRightSpacing}px`,
     ]"
   >
     <div
