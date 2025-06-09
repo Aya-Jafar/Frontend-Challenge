@@ -82,7 +82,7 @@ onMounted(() => {
         <img
           src="/images/close.svg"
           alt="close"
-          class="w-10 h-10"
+          class="w-10 h-10 cursor-pointer"
           @click="$emit('close')"
           priority
         />
@@ -145,7 +145,7 @@ onMounted(() => {
         </div>
         <!-- Right Side price -->
         <div
-          class="rounded-[16px] px-6 py-2 text-sm font-semibold transition border border-[#E7E5E5] text-base-default"
+          class="rounded-[12px] px-10 py-3 text-sm font-semibold transition border border-[#E7E5E5] text-base-default"
         >
           {{ product?.currency }} {{ product?.price }}
         </div>

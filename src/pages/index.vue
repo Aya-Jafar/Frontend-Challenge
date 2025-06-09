@@ -124,7 +124,7 @@ const isLoadingState = computed(() => {
           <template v-for="(section, index) in lazySections" :key="index">
             <div
               :class="{
-                'min-h-[300px]': section.type === 'grid',
+                'min-h-[200px]': section.type === 'grid',
                 'min-h-[600px]': section.type === 'products',
               }"
             >

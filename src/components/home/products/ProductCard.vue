@@ -135,6 +135,7 @@ const toggleWishlist = createToggleHandler({
     <!--  Title -->
     <h2
       v-if="properties.shouldShowTitle"
+      dir="rtl"
       :class="[
         'text-[15px] leading-snug !font-[600] text-natural-secondary mb-1 text-right',
         `line-clamp-${properties.titleLines || 2}`,
@@ -236,3 +237,5 @@ const toggleWishlist = createToggleHandler({
     </div>
   </div>
 </template>
+
+<style></style>

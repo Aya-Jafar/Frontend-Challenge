@@ -45,7 +45,10 @@ export const ProductsDTOBuilder = (wrapper: Product[]): ProductDTO[] => {
       category: product?.category || "Uncategorized",
       priceBeforeDiscount:
         Number(product?.price?.original_value)?.toLocaleString() || "0",
-      topTag: product?.start_tag?.title || null,
+
+      topTag:
+        `-${Number(product?.start_tag?.title?.match(/\d+/)?.[0])}%` || null, // Extract only number from disscount 
+
       topTagColor: product?.start_tag?.color || null,
       topTagBgColor: product?.start_tag?.bg_color || null,
       bottomTag: product?.end_tag?.title || null,
