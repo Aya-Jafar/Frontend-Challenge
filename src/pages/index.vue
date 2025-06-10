@@ -45,30 +45,32 @@ const isComponentsLoading = ref(true);
 const sections = computed((): Section[] | [] => {
   if (!Array.isArray(data.value)) return [];
 
-  const sectionHandlers = { 
+  const sectionHandlers: SectionHandlers = {
     products: {
-      prepareContent: (content: unknown) => store.preparePrdoucts(content as Product[]),
-      prepareProperties: (props: unknown) => store.preparePrdouctsProperties(props as ProductProperties),
+      prepareContent: (content) => store.preparePrdoucts(content),
+      prepareProperties: (properties) => store.preparePrdouctsProperties(properties),
       component: ProductsGrid,
     },
     grid: {
-      prepareContent: (content: unknown) => bannerStore.prepareBanners(content as Banner[]),
-      prepareProperties: (props: unknown) => bannerStore.prepareBannersProperties(props as BannerGridProperties),
+      prepareContent: (content) => bannerStore.prepareBanners(content),
+      prepareProperties: (properties) => bannerStore.prepareBannersProperties(properties),
       component: BannersGrid,
     },
     // Future sections can be added here
   };
 
-  // Pre-process each section data with it's own prepare function
-  return data?.value?.map((section: RawSection) => {
-    const handler = sectionHandlers[section.type];
-    return {
-      type: section.type,
-      content: handler.prepareContent(section.content),
-      properties: handler.prepareProperties(section.properties || {}),
-      component: handler.component,
-    };
-  });
+  // Pre-process each section data with it's own prepare functions
+  return (
+    data?.value?.map((section: RawSection) => {
+      const handler = sectionHandlers[section.type];
+      return {
+        type: section.type,
+        content: handler.prepareContent(section.content),
+        properties: handler.prepareProperties(section.properties || {}),
+        component: handler.component,
+      };
+    }) ?? []
+  );
 });
 
 // Lazy load the sections data

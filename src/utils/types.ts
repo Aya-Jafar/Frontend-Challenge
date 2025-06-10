@@ -23,6 +23,20 @@ export type Section = {
   component: Component;
 };
 
+interface BaseHandler {
+  prepareContent: (arg0: any) => ProductDTO[] | BannerDTO[];
+  prepareProperties: (
+    arg0: any
+  ) => ProductPropertiesDTO | BannerGridPropertiesDTO;
+  component: Component;
+}
+
+export interface SectionHandlers {
+  products: BaseHandler;
+  grid: BaseHandler;
+}
+
+
 export interface ProductProperties {
   image_ratio: string;
   title_lines: string;
