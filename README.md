@@ -102,7 +102,49 @@ const {
 </WrapperComponent>
 ```
 
+## Extendable blocks handler
+
+In case future blocks (or sections) will be added, A new object can be added to `sectionHandlers` with it's own
+component , prepare content and prepare properties functions like this:
+
+```typescript
+const sectionHandlers: SectionHandlers = {
+  products: {
+    prepareContent: (content) => store.preparePrdoucts(content),
+    prepareProperties: (properties) =>
+      store.preparePrdouctsProperties(properties),
+    component: ProductsGrid,
+  },
+  grid: {
+    prepareContent: (content) => bannerStore.prepareBanners(content),
+    prepareProperties: (properties) =>
+      bannerStore.prepareBannersProperties(properties),
+    component: BannersGrid,
+  },
+  // Future sections can be added here
+};
+// Note: new section type in the JSON should match the object key here like `products` or `grid`
+```
+
+with it's type intefaces as well to avoid TS types errors
+
+```typescript
+interface BaseHandler {
+  prepareContent: (arg0: any) => ProductDTO[] | BannerDTO[];
+  prepareProperties: (
+    arg0: any
+  ) => ProductPropertiesDTO | BannerGridPropertiesDTO;
+  component: Component;
+}
+
+export interface SectionHandlers {
+  products: BaseHandler;
+  grid: BaseHandler;
+}
+```
+
 # Metric & Lighthouse
+
 <div style="display: flex; gap: 12px; height:auto">
   <img src="./metric.png" alt="Metric" width="48%" />
   <img src="./lighthouse.png" alt="Lighthouse" width="48%" />
