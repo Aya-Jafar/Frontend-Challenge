@@ -9,7 +9,7 @@
 # Code structure
 
 I followed [Nuxt.js](https://nuxt.com/docs/guide/directory-structure/nuxt) guide to organize my folder structure and code
-**except** wrapping everything inside a `src/` folder to keep the root clean and seperate main files from congigaration files.
+**except** wrapping everything inside a `src/` folder to keep the root clean and seperate main files from configuration files.
 
 ```
 frontend-challenge/
@@ -62,11 +62,9 @@ Since API data is in this structure:
 ```json
 {
   "content":[
-    [
       {"type":"products","content":[...]},
       {"type":"grid","content":[...]},
       {"type":"products","content":[...]},
-    ]
   ]
 }
 ```
