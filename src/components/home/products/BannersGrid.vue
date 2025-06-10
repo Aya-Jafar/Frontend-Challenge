@@ -69,6 +69,7 @@ const aspectRatioStyle = computed(() => {
       `mx-${properties.outerLeftRightMargins}px`,
       `my-${properties.outerTopBottomMargins}px`,
       `px-${properties.innerLeftRightSpacing}px`,
+      `py-${properties.innerTopBottomSpacing}px`,
     ]"
   >
     <div

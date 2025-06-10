@@ -75,9 +75,9 @@ export const ProductsPropertiesDTOBuilder = (
     imageRatio: properties?.image_ratio || "1",
     titleLines: properties?.title_lines || "",
     hasCartBtn: properties?.has_cart_btn ?? true,
-    hasFavouriteBtn: properties?.has_favourite_btn ?? false,
-    shouldShowTitle: properties?.should_show_title ?? false,
-    shouldShowRating: properties?.should_show_rating ?? false,
-    shouldShowVariations: properties?.should_show_variations ?? false,
+    hasFavouriteBtn: properties?.has_favourite_btn ?? true,
+    shouldShowTitle: properties?.should_show_title ?? true,
+    shouldShowRating: properties?.should_show_rating ?? true,
+    shouldShowVariations: properties?.should_show_variations ?? true,
   };
 };
