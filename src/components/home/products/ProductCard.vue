@@ -139,6 +139,12 @@ const toggleWishlist = createToggleHandler({
         'text-[15px] leading-snug !font-[600] text-natural-secondary mb-1 text-right',
         `line-clamp-${properties.titleLines || 2}`,
       ]"
+      :style="{
+        display: '-webkit-box',
+        '-webkit-line-clamp': properties.titleLines || 2,
+        '-webkit-box-orient': 'vertical',
+        overflow: 'hidden',
+      }"
     >
       <span>
         <!-- First word is bold -->
