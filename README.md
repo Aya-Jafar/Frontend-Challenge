@@ -62,11 +62,9 @@ Since API data is in this structure:
 ```json
 {
   "content":[
-    [
       {"type":"products","content":[...]},
       {"type":"grid","content":[...]},
       {"type":"products","content":[...]},
-    ]
   ]
 }
 ```
