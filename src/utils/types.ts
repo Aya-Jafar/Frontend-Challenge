@@ -16,17 +16,12 @@ export interface ApiResponse {
   content: RawSection[];
 }
 
-export type Section =
-  | {
-      type: "products";
-      content: ProductDTO[];
-      properties: ProductPropertiesDTO;
-    }
-  | {
-      type: "grid";
-      content: BannerDTO[];
-      properties: BannerGridPropertiesDTO;
-    };
+export type Section = {
+  type: "products" | "grid";
+  content: ProductDTO[] | BannerDTO[];
+  properties: ProductPropertiesDTO | BannerGridPropertiesDTO;
+  component: Component;
+};
 
 export interface ProductProperties {
   image_ratio: string;

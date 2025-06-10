@@ -22,7 +22,7 @@ import useBannersStore from "~/stores/products/banners";
 const DefaultLayout = defineAsyncComponent(
   () => import("~/layout/DefaultLayout.vue")
 );
-const Grid = defineAsyncComponent(
+const ProductsGrid = defineAsyncComponent(
   () => import("~/components/home/products/ProductsGrid.vue")
 );
 const BannersGrid = defineAsyncComponent(
@@ -38,35 +38,36 @@ const { isOnline } = useOnline();
 const isComponentsLoading = ref(true);
 
 /**
- * Checks if the section type is a product section and prepares each section data seperatly.
+ * Transforms raw API data into typed sections with prepared content and components.
  * @param section - The section to check.
- * @returns The prepared products data or an empty array if the section is not a product section.
+ * @returns The prepared grid data or an empty array.
  */
 const sections = computed((): Section[] | [] => {
   if (!Array.isArray(data.value)) return [];
 
-  const isProductSection = (type: Type): type is "products" =>
-    type === "products";
+  const sectionHandlers = { 
+    products: {
+      prepareContent: (content: unknown) => store.preparePrdoucts(content as Product[]),
+      prepareProperties: (props: unknown) => store.preparePrdouctsProperties(props as ProductProperties),
+      component: ProductsGrid,
+    },
+    grid: {
+      prepareContent: (content: unknown) => bannerStore.prepareBanners(content as Banner[]),
+      prepareProperties: (props: unknown) => bannerStore.prepareBannersProperties(props as BannerGridProperties),
+      component: BannersGrid,
+    },
+    // Future sections can be added here
+  };
 
-  // Pre-process each section data
-  return data.value.map((section: RawSection) => {
-    if (isProductSection(section.type)) {
-      return {
-        type: section.type,
-        content: store.preparePrdoucts(section?.content as Product[]),
-        properties: store.preparePrdouctsProperties(
-          section?.properties as ProductProperties
-        ),
-      };
-    } else {
-      return {
-        type: section.type,
-        content: bannerStore.prepareBanners(section?.content),
-        properties: bannerStore.prepareBannersProperties(
-          (section?.properties as BannerGridProperties) || {}
-        ),
-      };
-    }
+  // Pre-process each section data with it's own prepare function
+  return data?.value?.map((section: RawSection) => {
+    const handler = sectionHandlers[section.type];
+    return {
+      type: section.type,
+      content: handler.prepareContent(section.content),
+      properties: handler.prepareProperties(section.properties || {}),
+      component: handler.component,
+    };
   });
 });
 
@@ -83,7 +84,7 @@ const {
 
 // After all async components are loaded
 onMounted(() => {
-  Promise.all([DefaultLayout, Grid, BannersGrid]).then(() => {
+  Promise.all([DefaultLayout, ProductsGrid, BannersGrid]).then(() => {
     isComponentsLoading.value = false;
   });
 });
@@ -121,13 +122,8 @@ const isLoadingState = computed(() => {
                 'min-h-[600px]': section.type === 'products',
               }"
             >
-              <Grid
-                v-if="section.type === 'products'"
-                :data="section.content"
-                :properties="section.properties"
-              />
-              <BannersGrid
-                v-else-if="section.type === 'grid'"
+              <component
+                :is="section.component"
                 :data="section.content"
                 :properties="section.properties"
               />
