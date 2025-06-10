@@ -16,8 +16,6 @@
 import ProductCard from "~/components/home/products/ProductCard.vue";
 import ProductModal from "./ProductModal.vue";
 import { ref } from "vue";
-import type { ProductDTO, ProductPropertiesDTO } from "../../../utils/types";
-import useLazyScroll from "~/composables/useLazyScroll";
 import Loading from "~/components/common/Loading.vue";
 
 const props = defineProps({

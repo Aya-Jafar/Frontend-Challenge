@@ -20,8 +20,7 @@
  */
 
 import useWishListStore from "~/stores/products/wishlist";
-import useCardStore from "../../../stores/products/card";
-import type { ProductDTO, ProductPropertiesDTO } from "../../../utils/types";
+import useCardStore from "~/stores/products/card";
 import useToggleActions from "~/stores/products/actions";
 
 const props = defineProps<{

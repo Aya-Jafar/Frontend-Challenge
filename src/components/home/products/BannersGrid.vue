@@ -12,7 +12,6 @@
  * - Lazy loads banners with configurable batch size.
  */
 
-import type { BannerGridPropertiesDTO, BannerDTO } from "../../../utils/types";
 import Loading from "~/components/common/Loading.vue";
 
 const props = defineProps({

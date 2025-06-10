@@ -10,18 +10,11 @@
 
 import { defineAsyncComponent } from "vue";
 import WrapperComponent from "~/components/common/WrapperComponent.vue";
-import { SSR_ENDPOINTS } from "~/utils/SSR-endpoint";
 import { computed } from "vue";
 import Snackbar from "~/components/common/Snackbar.vue";
 import Loading from "~/components/common/Loading.vue";
 import useProdcutsStore from "~/stores/products/products";
 import useBannersStore from "~/stores/products/banners";
-import {
-  type Type,
-  type Section,
-  type RawSection,
-  type BannerGridProperties,
-} from "~/utils/types";
 
 /**
  * Lazy loaded components

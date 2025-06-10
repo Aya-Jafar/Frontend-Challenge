@@ -1,9 +1,3 @@
-import type {
-  Banner,
-  BannerDTO,
-  BannerGridProperties,
-  BannerGridPropertiesDTO,
-} from "~/utils/types";
 
 /**
  * Transforms raw Banner data into BannerDTOs with default fallbacks.

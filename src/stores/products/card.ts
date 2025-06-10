@@ -1,6 +1,6 @@
-import type { ProductDTO } from "~/utils/types";
 
 type CartProduct = ProductDTO & { count: number };
+
 
 const useCardStore = () => {
   const card = useState<CartProduct[]>("card", () => []);

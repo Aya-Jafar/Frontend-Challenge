@@ -21,10 +21,8 @@
  */
 
 import { onMounted, ref } from "vue";
-import type { ProductDTO } from "../../../utils/types";
 import BaseButton from "../../common/BaseButton.vue";
 import useCardStore from "../../../stores/products/card";
-import useClickOutside from "~/composables/useClickOutside";
 import useToggleActions from "~/stores/products/actions";
 import ProductModalSkeleton from "./ProductModalSkeleton.vue";
 

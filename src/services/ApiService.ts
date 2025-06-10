@@ -1,4 +1,3 @@
-import { useSnackbarStore } from "@/stores/snackbar";
 // @ts-ignore
 import { useRuntimeConfig } from "#imports";
 import type { SnackbarType } from "@/stores/snackbar";

@@ -1,17 +1,8 @@
-import type {
-  ContentWrapper,
-  Product,
-  ProductDTO,
-  ProductProperties,
-  ProductPropertiesDTO,
-} from "~/utils/types";
-
 /**
  * `Data Transfer Object` to safely extract product data from ContentWrapper
  * @param {Product[]} wrapper - Array of raw product objects from the backend.
  * @returns {ProductDTO[]} A cleaned array of product data with transformed keys and fallbacks.
  */
-
 export const ProductsDTOBuilder = (wrapper: Product[]): ProductDTO[] => {
   if (!wrapper || !Array.isArray(wrapper)) {
     return [];
@@ -47,7 +38,7 @@ export const ProductsDTOBuilder = (wrapper: Product[]): ProductDTO[] => {
         Number(product?.price?.original_value)?.toLocaleString() || "0",
 
       topTag:
-        `-${Number(product?.start_tag?.title?.match(/\d+/)?.[0])}%` || null, // Extract only number from disscount 
+        `-${Number(product?.start_tag?.title?.match(/\d+/)?.[0])}%` || null, // Extract only number from disscount
 
       topTagColor: product?.start_tag?.color || null,
       topTagBgColor: product?.start_tag?.bg_color || null,

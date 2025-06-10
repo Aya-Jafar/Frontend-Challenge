@@ -1,10 +1,4 @@
 import { BannerDTOBuilder, BannersPropertiesDTOBuilder } from "./DTO/banners";
-import type {
-  Banner,
-  BannerDTO,
-  BannerGridProperties,
-  BannerGridPropertiesDTO,
-} from "~/utils/types";
 
 const useBannersStore = () => {
   /**

@@ -1,4 +1,3 @@
-import type { ProductDTO } from "~/utils/types";
 
 type WishlistProduct = ProductDTO & { count: number };
 

@@ -1,9 +1,3 @@
-import type {
-  Product,
-  ProductDTO,
-  ProductProperties,
-  ProductPropertiesDTO,
-} from "~/utils/types";
 import {
   ProductsDTOBuilder,
   ProductsPropertiesDTOBuilder,
