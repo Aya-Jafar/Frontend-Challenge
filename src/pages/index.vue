@@ -16,12 +16,13 @@ import Loading from "~/components/common/Loading.vue";
 import useProdcutsStore from "~/stores/products/products";
 import useBannersStore from "~/stores/products/banners";
 
+definePageMeta({
+  layout:"default"
+})
+
 /**
  * Lazy loaded components
  **/
-const DefaultLayout = defineAsyncComponent(
-  () => import("~/layout/DefaultLayout.vue")
-);
 const ProductsGrid = defineAsyncComponent(
   () => import("~/components/home/products/ProductsGrid.vue")
 );
@@ -48,12 +49,14 @@ const sections = computed((): Section[] | [] => {
   const sectionHandlers: SectionHandlers = {
     products: {
       prepareContent: (content) => store.preparePrdoucts(content),
-      prepareProperties: (properties) => store.preparePrdouctsProperties(properties),
+      prepareProperties: (properties) =>
+        store.preparePrdouctsProperties(properties),
       component: ProductsGrid,
     },
     grid: {
       prepareContent: (content) => bannerStore.prepareBanners(content),
-      prepareProperties: (properties) => bannerStore.prepareBannersProperties(properties),
+      prepareProperties: (properties) =>
+        bannerStore.prepareBannersProperties(properties),
       component: BannersGrid,
     },
     // Future sections can be added here
@@ -86,7 +89,7 @@ const {
 
 // After all async components are loaded
 onMounted(() => {
-  Promise.all([DefaultLayout, ProductsGrid, BannersGrid]).then(() => {
+  Promise.all([ProductsGrid, BannersGrid]).then(() => {
     isComponentsLoading.value = false;
   });
 });
@@ -103,56 +106,56 @@ const isLoadingState = computed(() => {
 
 <template>
   <!-- Default layout for nav and shared components  -->
-  <DefaultLayout>
-    <!-- Wrapper component to handle different states of data (loading,error, empty) -->
-    <WrapperComponent
-      :card-skeleton="true"
-      :is-loading="isLoadingState"
-      :is-pending="isLoadingState"
-      :is-success="status === 'success' && !isComponentsLoading"
-      :error="error ?? undefined"
-      :is-online="isOnline ?? true"
-      :is-empty="sections?.length === 0 && status !== 'pending' && isOnline"
-    >
-      <template #content>
-        <div class="px-4 lg:px-10 max-w-screen-2xl mx-auto mb-5 mt-10">
-          <!-- Each section is eaither of type "grid" or "products" -->
-          <template v-for="(section, index) in lazySections" :key="index">
-            <div
-              :class="{
-                'min-h-[200px]': section.type === 'grid',
-                'min-h-[600px]': section.type === 'products',
-              }"
-            >
-              <component
-                :is="section.component"
-                :data="section.content"
-                :properties="section.properties"
-              />
-            </div>
-          </template>
-        </div>
+  <!-- <DefaultLayout> -->
+  <!-- Wrapper component to handle different states of data (loading,error, empty) -->
+  <WrapperComponent
+    :card-skeleton="true"
+    :is-loading="isLoadingState"
+    :is-pending="isLoadingState"
+    :is-success="status === 'success' && !isComponentsLoading"
+    :error="error ?? undefined"
+    :is-online="isOnline ?? true"
+    :is-empty="sections?.length === 0 && status !== 'pending' && isOnline"
+  >
+    <template #content>
+      <div class="px-4 lg:px-10 max-w-screen-2xl mx-auto mb-5 mt-10">
+        <!-- Each section is eaither of type "grid" or "products" -->
+        <template v-for="(section, index) in lazySections" :key="index">
+          <div
+            :class="{
+              'min-h-[200px]': section.type === 'grid',
+              'min-h-[600px]': section.type === 'products',
+            }"
+          >
+            <component
+              :is="section.component"
+              :data="section.content"
+              :properties="section.properties"
+            />
+          </div>
+        </template>
+      </div>
 
-        <div
-          v-if="hasMore"
-          ref="endTracker"
-          class="h-1 w-full bg-transparent"
-        ></div>
+      <div
+        v-if="hasMore"
+        ref="endTracker"
+        class="h-1 w-full bg-transparent"
+      ></div>
 
-        <!-- Loading indicator -->
-        <div v-if="endLoading" class="flex justify-center min-h-[100px]">
-          <Loading />
-        </div>
+      <!-- Loading indicator -->
+      <div v-if="endLoading" class="flex justify-center min-h-[100px]">
+        <Loading />
+      </div>
 
-        <!-- No more content indicator -->
-        <div
-          v-if="!hasMore && lazySections.length > 0"
-          class="py-8 text-gray-500 flex items-center justify-center !text-center"
-        >
-          You've reached the end 🙁
-        </div>
-      </template>
-    </WrapperComponent>
-    <Snackbar />
-  </DefaultLayout>
+      <!-- No more content indicator -->
+      <div
+        v-if="!hasMore && lazySections.length > 0"
+        class="py-8 text-gray-500 flex items-center justify-center !text-center"
+      >
+        You've reached the end 🙁
+      </div>
+    </template>
+  </WrapperComponent>
+  <Snackbar />
+  <!-- </DefaultLayout> -->
 </template>
