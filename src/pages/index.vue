@@ -17,8 +17,8 @@ import useProdcutsStore from "~/stores/products/products";
 import useBannersStore from "~/stores/products/banners";
 
 definePageMeta({
-  layout:"default"
-})
+  layout: "default",
+});
 
 /**
  * Lazy loaded components
@@ -107,6 +107,12 @@ const isLoadingState = computed(() => {
 <template>
   <!-- Default layout for nav and shared components  -->
   <!-- <DefaultLayout> -->
+
+  <NuxtLink to="/test" class="btn"> Go to Test Page </NuxtLink>
+  <br/>
+  <NuxtLink to="/blog" class="btn"> Go to Blog Page </NuxtLink>
+
+
   <!-- Wrapper component to handle different states of data (loading,error, empty) -->
   <WrapperComponent
     :card-skeleton="true"
